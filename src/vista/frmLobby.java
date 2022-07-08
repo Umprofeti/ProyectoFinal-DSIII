@@ -896,8 +896,8 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void btnBuscarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoMouseClicked
         // TODO add your handling code here:
-        controlador.Empleados empleado = new controlador.Empleados();
-        ArrayList<Empleados> lista = new ArrayList<>();
+        controlador.Empleado empleado = new controlador.Empleado();
+        ArrayList<Empleado> lista = new ArrayList<>();
         String cedulatxt = String.valueOf(txtCedula.getText());
         if (!cedulatxt.equals("")) {
             empleado.setCedula(String.valueOf(txtCedula.getText()));
@@ -907,10 +907,10 @@ public class frmLobby extends javax.swing.JFrame {
                     if (lista.get(i).getCedula().equals(cedulatxt)) {
                         txtCedulaEmpleado.setEnabled(false);
                         txtCedulaEmpleado.setText(cedulatxt);
-                        txtNombre1.setText(lista.get(i).getNombre());
-                        txtNombre2.setText(lista.get(i).getNombre2());
-                        txtApellido1.setText(lista.get(i).getApellido());
-                        txtApellido2.setText(lista.get(i).getApellido2());
+                        txtNombre1.setText(lista.get(i).getPrimerNombre());
+                        txtNombre2.setText(lista.get(i).getSegundoNombre());
+                        txtApellido1.setText(lista.get(i).getPrimerApellido());
+                        txtApellido2.setText(lista.get(i).getSegundoApellido());
                         String anio, mes, dia;
                         String fecha = lista.get(i).getFecha_nacimiento();
                         anio = fecha.substring(0, 4);
@@ -937,7 +937,7 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void btnInsertarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertarMouseClicked
         // TODO add your handling code here:
-        Empleado obj_empleado = new Empleado();
+        controlador.Empleado obj_empleado = new controlador.Empleado();
         if (!txtCedulaEmpleado.getText().isEmpty() && !txtNombre1.getText().isEmpty() && !txtNombre2.getText().isEmpty() && !txtApellido1.getText().isEmpty()
                 && !txtApellido2.getText().isEmpty() && !cmbDia.getSelectedItem().equals("") && !cmbMes.getSelectedItem().equals("")
                 && !cmbAnio.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()
@@ -947,10 +947,10 @@ public class frmLobby extends javax.swing.JFrame {
             if (obj_empleado.BuscarEmpleado()) {
                 JOptionPane.showMessageDialog(null, "Este empleado ya existe");
             } else {
-                obj_empleado.setNombre(String.valueOf(txtNombre1.getText()));
-                obj_empleado.setNombre2(String.valueOf(txtNombre2.getText()));
-                obj_empleado.setApellido(String.valueOf(txtApellido1.getText()));
-                obj_empleado.setApellido2(String.valueOf(txtApellido2.getText()));
+                obj_empleado.setPrimerNombre(String.valueOf(txtNombre1.getText()));
+                obj_empleado.setSegundoNombre(String.valueOf(txtNombre2.getText()));
+                obj_empleado.setPrimerApellido(String.valueOf(txtApellido1.getText()));
+                obj_empleado.setSegundoApellido(String.valueOf(txtApellido2.getText()));
                 String anio = String.valueOf(cmbAnio.getSelectedItem());
                 String mes = String.valueOf(cmbMes.getSelectedItem());
                 String dia = String.valueOf(cmbDia.getSelectedItem());
@@ -982,15 +982,15 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
-        Empleados empleado = new Empleados();
+        controlador.Empleado empleado = new controlador.Empleado();
         if (!txtCedulaEmpleado.getText().isEmpty() && !txtNombre1.getText().isEmpty() && !txtNombre2.getText().isEmpty() && !txtApellido1.getText().isEmpty()
                 && !txtApellido2.getText().isEmpty() && !cmbDia.getSelectedItem().equals("") && !cmbMes.getSelectedItem().equals("")
                 && !cmbAnio.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
             empleado.setCedula(String.valueOf(txtCedulaEmpleado.getText()));
-            empleado.setNombre(String.valueOf(txtNombre1.getText()));
-            empleado.setNombre2(String.valueOf(txtNombre2.getText()));
-            empleado.setApellido((String.valueOf(txtApellido1.getText())));
-            empleado.setApellido2((String.valueOf(txtApellido2.getText())));
+            empleado.setPrimerNombre(String.valueOf(txtNombre1.getText()));
+            empleado.setSegundoNombre(String.valueOf(txtNombre2.getText()));
+            empleado.setPrimerApellido((String.valueOf(txtApellido1.getText())));
+            empleado.setSegundoApellido((String.valueOf(txtApellido2.getText())));
             String anio = String.valueOf(cmbAnio.getSelectedItem());
             String mes = String.valueOf(cmbMes.getSelectedItem());
             String dia = String.valueOf(cmbDia.getSelectedItem());
@@ -1030,7 +1030,7 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void btnCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseClicked
         // TODO add your handling code here:
-        controlador.Usuarios obj_usuario = new controlador.Usuarios();
+        controlador.Usuario obj_usuario = new controlador.Usuario();
         if (!txtUsuario.getText().isEmpty() && !txtCedulaUsuario.getText().isEmpty() && txtPassword.getPassword().length != 0
                 && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() && !txtDireccion1.getText().isEmpty()) {
             obj_usuario.setCedula(String.valueOf(txtCedulaUsuario.getText()));
@@ -1088,7 +1088,7 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void jbteliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbteliminarActionPerformed
         // TODO add your handling code here:
-        Planilla obj = new Planilla();
+        controlador.Planilla obj = new controlador.Planilla();
         int[] borrar = (tblplanilla.getSelectedRows());//Buscamos las filas que fueron seleccionados
         if (borrar.length != 0) {//Verificamos que se haya seleccionado 1 por lo menos
             int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas borrar " + borrar.length + " empleado?");
@@ -1148,10 +1148,10 @@ public class frmLobby extends javax.swing.JFrame {
             for (int i = 0; i < planilla.size(); i++) {//Se agrega todo al arrayList para mostrarlo en la tabla
 
                 String[] arreglo = {planilla.get(i).getCedula(),
-                    planilla.get(i).getNombre(),
-                    planilla.get(i).getNombre2(),
-                    planilla.get(i).getApellido(),
-                    planilla.get(i).getApellido2(),
+                    planilla.get(i).getPrimerNombre(),
+                    planilla.get(i).getSegundoNombre(),
+                    planilla.get(i).getPrimerApellido(),
+                    planilla.get(i).getSegundoApellido(),
                     String.valueOf(planilla.get(i).getHoratrabjada()),
                     String.valueOf(planilla.get(i).getSphora()),
                     String.valueOf(planilla.get(i).getSbruto()),
