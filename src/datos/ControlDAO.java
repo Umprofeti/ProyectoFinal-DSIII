@@ -85,7 +85,7 @@ public class ControlDAO {
             ps = conn.prepareCall("CALL sp_insert_usuarios(?, ?,?, ?, ?,?,?)");
             ps.setString(1, usuario.getCedula());
             ps.setString(2, usuario.getUsuario());
-            ps.setString(3, usuario.getPassword());
+            ps.setString(3, usuario.getEncodedPassword(usuario.getPassword()));
             ps.setString(4, usuario.getNombre());
             ps.setString(5, usuario.getApellido());
             ps.setString(6, usuario.getDireccion());
@@ -192,5 +192,31 @@ public class ControlDAO {
             Conexion.close(ps);
             Conexion.close(conn);
         }
+    }
+    
+    public boolean verificarDatosLogin(String user, String Password){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs;
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_validar_usuario(?,?)");
+            ps.setString(1, user);
+            ps.setString(2, Password);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString("numero").equals("1")){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("ex = " + ex);
+        } finally {
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return false;
     }
 }

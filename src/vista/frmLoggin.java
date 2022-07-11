@@ -4,7 +4,7 @@
  */
 
 package vista;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author Rasheth Javier -_-
@@ -204,24 +204,36 @@ public class frmLoggin extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-        if(main.Proyecto01.usrLogin.findUserID(nomusuariotxtf.getText())){
-            if(main.Proyecto01.usrLogin.isUserRoot(nomusuariotxtf.getText())){
-               
-                if(main.Proyecto01.usrLogin.isValidPassword(nomusuariotxtf.getText(), new String(tfUserPass.getPassword()))){
-                    frmLobby lobby = new frmLobby(nomusuariotxtf.getText().trim());
-                    lobby.setVisible(true);
-                    lobby.setTitle("Panel principal");
-                    setVisible(false);
-                }
-            }else{
-                if(main.Proyecto01.usrLogin.isValidPassword(nomusuariotxtf.getText(), new String(tfUserPass.getPassword()))){
-                    frmLobby lobby = new frmLobby(nomusuariotxtf.getText().trim());
-                    lobby.setVisible(true);
-                    lobby.setTitle("Panel principal");
-                    setVisible(false);
-                }
-            }
-        }
+        datos.ControlDAO control = new datos.ControlDAO();
+            controlador.Login lg = new controlador.Login();
+            controlador.Usuario usrEncondedPass = new controlador.Usuario();
+            lg.setUserID(nomusuariotxtf.getText().trim());
+            lg.setPassword(usrEncondedPass.getEncodedPassword(new String(tfUserPass.getPassword())));
+            
+           if(control.verificarDatosLogin(lg.getUserID(), lg.getPassword())){
+                frmLobby lobby = new frmLobby(nomusuariotxtf.getText().trim());
+                lobby.setVisible(true);
+                lobby.setTitle("Panel principal");
+                setVisible(false);
+           }else{
+               JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecto");
+           } 
+            
+//        if(main.Proyecto01.usrLogin.findUserID(nomusuariotxtf.getText())){
+//            if(main.Proyecto01.usrLogin.isUserRoot(nomusuariotxtf.getText())){
+//               
+//                if(main.Proyecto01.usrLogin.isValidPassword(nomusuariotxtf.getText(), new String(tfUserPass.getPassword()))){
+//                    
+//                }
+//            }else{
+//                if(main.Proyecto01.usrLogin.isValidPassword(nomusuariotxtf.getText(), new String(tfUserPass.getPassword()))){
+//                    frmLobby lobby = new frmLobby(nomusuariotxtf.getText().trim());
+//                    lobby.setVisible(true);
+//                    lobby.setTitle("Panel principal");
+//                    setVisible(false);
+//                }
+//            }
+//        }
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**

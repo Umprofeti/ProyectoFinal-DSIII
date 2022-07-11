@@ -85,5 +85,18 @@ public class Usuario {
         return pass;
     }
     
-    
+    public void createUserAdmin(){
+        Usuario usr = new Usuario();
+        datos.ControlDAO control = new datos.ControlDAO();
+        
+        usr.setCedula("0-000-0000");
+        usr.setUsuario("admin");
+        usr.setPassword("123456");
+        usr.setNombre("-----");
+        usr.setApellido("-------");
+        usr.setDireccion("------");
+        usr.setFechaIngreso("2022-07-11");
+        
+        control.insertarUsuario(usr);
+    }
 }
