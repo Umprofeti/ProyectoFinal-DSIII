@@ -1,5 +1,7 @@
 package controlador;
 
+   import java.util.ArrayList;     
+        
 public class Planilla extends Empleado{
     private double Sphora;
     private int horatrabjada;
@@ -7,31 +9,51 @@ public class Planilla extends Empleado{
     private double segsocial, segeducativo;
     private final double SS = 0.0975, SE = 0.0125; 
     private double SNETO;
-    private int id_planilla;
-
+    private int idplanilla;
+    private String fecha;
+    
     public Planilla() {
     }
 
-    public Planilla(double Sphora, int horatrabjada, double Sbruto, double segsocial, double segeducativo, double SNETO) {
-        this.Sphora = Sphora;
-        this.horatrabjada = horatrabjada;
+    public Planilla(int idPlanilla, String fecha, double Sbruto, double segsocial, double segeducativo, double SNETO) {
+        this.idplanilla = idPlanilla;
+        this.fecha = fecha;
         this.Sbruto = Sbruto;
         this.segsocial = segsocial;
         this.segeducativo = segeducativo;
         this.SNETO = SNETO;
     }
 
-    public Planilla(double Sphora, int horatrabjada, double Sbruto, double 
+    public Planilla(int idPlanilla, String fecha, double Sphora, int horatrabjada, double Sbruto, double 
             segsocial, double segeducativo, double SNETO, String cedula, 
             String nombre, String nombre2, String Apellido, String Apellido2, 
             String fecha_nacimiento, String direccion, String telefono) {
         super(cedula, nombre, nombre2, Apellido, Apellido2, fecha_nacimiento, direccion, telefono);
+        this.idplanilla = idPlanilla;
+        this.fecha = fecha;
         this.Sphora = Sphora;
         this.horatrabjada = horatrabjada;
         this.Sbruto = Sbruto;
         this.segsocial = segsocial;
         this.segeducativo = segeducativo;
         this.SNETO = SNETO;
+        
+    }
+
+    public int getIdplanilla() {
+        return idplanilla;
+    }
+
+    public void setIdplanilla(int idplanilla) {
+        this.idplanilla = idplanilla;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
     public double getSphora() {
@@ -95,11 +117,11 @@ public class Planilla extends Empleado{
     }
 
     public int getId_planilla() {
-        return id_planilla;
+        return idplanilla;
     }
 
-    public void setId_planilla(int id_planilla) {
-        this.id_planilla = id_planilla;
+    public void setId_planilla(int idplanilla) {
+        this.idplanilla = idplanilla;
     }
 
     
@@ -120,3 +142,4 @@ public class Planilla extends Empleado{
         }
     }
 }
+        

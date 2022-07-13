@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class Conexion {
     private static final String JDBC_URL = "jdbc:mysql://localhost/semestral";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "admin";
+    private static final String JDBC_PASSWORD = "";
     
     public static Connection getConnection() throws SQLException{
         try {

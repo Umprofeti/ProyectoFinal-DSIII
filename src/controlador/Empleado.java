@@ -1,5 +1,8 @@
 package controlador;
 
+import datos.ControlDAO;
+import java.util.ArrayList;
+
 public class Empleado {
     private String cedula;
     private String primerNombre, segundoNombre;
@@ -86,4 +89,20 @@ public class Empleado {
         this.telefono = telefono;
     }
     
+    public boolean buscarempleado(String pcedu){
+         ControlDAO obj_control=new ControlDAO();
+        ArrayList<Empleado>empleado=new ArrayList<>();
+        empleado=obj_control.seleccionarEmpleados();
+        
+        String cedul=pcedu;
+           for (int i = 0; i < empleado.size(); i++) {
+                if (empleado.get(i).getCedula().equals(cedul) ) {
+                  return true;   
+                  
+                }
+                
+           } return false;
+    }
+    
+
 }

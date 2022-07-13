@@ -84,7 +84,7 @@ public class frmEmpleadoPlanilla extends javax.swing.JFrame {
                 .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnbuscar)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,10 +243,10 @@ public class frmEmpleadoPlanilla extends javax.swing.JFrame {
         getContentPane().add(btnregresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 90, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city.png"))); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 430));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 490));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city_1.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 290, 430));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 290, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -269,6 +269,7 @@ public class frmEmpleadoPlanilla extends javax.swing.JFrame {
         controlador.Empleados obj_empleado = new controlador.Empleados();
 
         ArrayList<Empleados> lista = new ArrayList<>();
+        
         if (!cedula.getText().equals("")) {//Verficamos que el campo cédula no este vacio 
             obj_empleado.setCedula(String.valueOf(cedula.getText()));
 

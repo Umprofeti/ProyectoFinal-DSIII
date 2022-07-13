@@ -124,8 +124,8 @@ public class frmLobby extends javax.swing.JFrame {
         tblplanilla = new javax.swing.JTable();
         jbtnactuali = new javax.swing.JButton();
         labelfondo = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
         labelfondo1 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
         labelfondo2 = new javax.swing.JLabel();
         labelfondo3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -800,13 +800,13 @@ public class frmLobby extends javax.swing.JFrame {
         labelfondo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(labelfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 370, 490));
 
-        jLabel32.setFocusable(false);
-        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 490));
-
         labelfondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city.png"))); // NOI18N
         labelfondo1.setLabelFor(labelfondo);
         labelfondo1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(labelfondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 490));
+
+        jLabel32.setFocusable(false);
+        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 490));
 
         labelfondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city_1.png"))); // NOI18N
         labelfondo2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1020,19 +1020,37 @@ public class frmLobby extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+    private void jmVerEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmVerEmpleadoMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioActionPerformed
+        if (jmVerEmpleado.isSelected()) {
+            CardLayout jPanels = (CardLayout) PanelPrincipal.getLayout();
+            jPanels.show(PanelPrincipal, "jPanelEmpleados");
+        }
+    }//GEN-LAST:event_jmVerEmpleadoMousePressed
 
-    private void txtNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreUsuarioActionPerformed
+    private void jmCrearUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmCrearUsuarioMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreUsuarioActionPerformed
+        if (jmCrearUsuario.isSelected()) {
+            CardLayout jPanels = (CardLayout) PanelPrincipal.getLayout();
+            jPanels.show(PanelPrincipal, "jPanelCrearUsuarios");
+        }
+    }//GEN-LAST:event_jmCrearUsuarioMousePressed
+
+    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+        // TODO add your handling code here:
+        txtUsuario.setText("");
+        txtNombreUsuario.setText("");
+        txtApellidoUsuario.setText("");
+        txtCedulaUsuario.setText("");
+        txtDireccion1.setText("");
+        txtPassword.setText("");
+    }//GEN-LAST:event_btnCancelarMousePressed
 
     private void btnCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseClicked
         // TODO add your handling code here:
         controlador.Usuario obj_usuario = new controlador.Usuario();
         if (!txtUsuario.getText().isEmpty() && !txtCedulaUsuario.getText().isEmpty() && txtPassword.getPassword().length != 0
-                && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() && !txtDireccion1.getText().isEmpty()) {
+            && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() && !txtDireccion1.getText().isEmpty()) {
             obj_usuario.setCedula(String.valueOf(txtCedulaUsuario.getText()));
             if (obj_usuario.Buscar()) {
                 JOptionPane.showMessageDialog(null, "Este Usuario ya existe");
@@ -1060,80 +1078,20 @@ public class frmLobby extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCrearUsuarioMouseClicked
 
-    private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
+    private void txtNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreUsuarioActionPerformed
         // TODO add your handling code here:
-        txtUsuario.setText("");
-        txtNombreUsuario.setText("");
-        txtApellidoUsuario.setText("");
-        txtCedulaUsuario.setText("");
-        txtDireccion1.setText("");
-        txtPassword.setText("");
-    }//GEN-LAST:event_btnCancelarMousePressed
+    }//GEN-LAST:event_txtNombreUsuarioActionPerformed
 
-    private void jmVerEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmVerEmpleadoMousePressed
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
-        if (jmVerEmpleado.isSelected()) {
-            CardLayout jPanels = (CardLayout) PanelPrincipal.getLayout();
-            jPanels.show(PanelPrincipal, "jPanelEmpleados");
-        }
-    }//GEN-LAST:event_jmVerEmpleadoMousePressed
-
-    private void jmCrearUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmCrearUsuarioMousePressed
-        // TODO add your handling code here:
-        if (jmCrearUsuario.isSelected()) {
-            CardLayout jPanels = (CardLayout) PanelPrincipal.getLayout();
-            jPanels.show(PanelPrincipal, "jPanelCrearUsuarios");
-        }
-    }//GEN-LAST:event_jmCrearUsuarioMousePressed
-
-    private void jbteliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbteliminarActionPerformed
-        // TODO add your handling code here:
-        controlador.Planilla obj = new controlador.Planilla();
-        int[] borrar = (tblplanilla.getSelectedRows());//Buscamos las filas que fueron seleccionados
-        if (borrar.length != 0) {//Verificamos que se haya seleccionado 1 por lo menos
-            int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas borrar " + borrar.length + " empleado?");
-            if (resp == 0) {
-                for (int i = 0; i < borrar.length; i++) {//Se repite el metodo borrar para borrar a los empleado de la planilla.
-                    String cedulaBorrar = String.valueOf(tblplanilla.getValueAt(borrar[i], 0));
-                    obj.eliminar(cedulaBorrar);//HAY QUE PONER SI DESEA ELIMINAR EL EMPLEADO SI O NO
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No seleccionaste al empleado que deseas eliminar de la planilla");
-        }
-    }//GEN-LAST:event_jbteliminarActionPerformed
-
-    private void jbtadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtadicionarActionPerformed
-        // TODO add your handling code here:
-        frmEmpleadoPlanilla obj_añadir = new frmEmpleadoPlanilla();
-        obj_añadir.setVisible(true);
-    }//GEN-LAST:event_jbtadicionarActionPerformed
-
-    private void jmCrearPlanillaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmCrearPlanillaMousePressed
-        // TODO add your handling code here:
-        if (jmCrearPlanilla.isSelected()) {
-            CardLayout jPanels = (CardLayout) PanelPrincipal.getLayout();
-            jPanels.show(PanelPrincipal, "PanelPlanilla");
-        }
-
-    }//GEN-LAST:event_jmCrearPlanillaMousePressed
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
         // TODO add your handling code here:
         if (jPanel1.isFocusOwner()) {
             System.out.println("focus obtenido");
         }
-
     }//GEN-LAST:event_jPanel1FocusGained
-
-    public void limpiartabla() {
-        DefaultTableModel temp = (DefaultTableModel) tblplanilla.getModel();
-        int filas = tblplanilla.getRowCount();
-
-        for (int a = 0; filas > a; a++) {
-            temp.removeRow(0);
-        }
-    }
 
     private void jbtnactualiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnactualiActionPerformed
         // TODO add your handling code here://
@@ -1165,6 +1123,46 @@ public class frmLobby extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Aún no se agrego ningún empleado a la planilla.");
         }
     }//GEN-LAST:event_jbtnactualiActionPerformed
+
+    private void jbtadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtadicionarActionPerformed
+        // TODO add your handling code here:
+        frmEmpleadoPlanilla obj_añadir = new frmEmpleadoPlanilla();
+        obj_añadir.setVisible(true);
+    }//GEN-LAST:event_jbtadicionarActionPerformed
+
+    private void jbteliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbteliminarActionPerformed
+        // TODO add your handling code here:
+        controlador.Planilla obj = new controlador.Planilla();
+        int[] borrar = (tblplanilla.getSelectedRows());//Buscamos las filas que fueron seleccionados
+        if (borrar.length != 0) {//Verificamos que se haya seleccionado 1 por lo menos
+            int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas borrar " + borrar.length + " empleado?");
+            if (resp == 0) {
+                for (int i = 0; i < borrar.length; i++) {//Se repite el metodo borrar para borrar a los empleado de la planilla.
+                    String cedulaBorrar = String.valueOf(tblplanilla.getValueAt(borrar[i], 0));
+                    obj.eliminar(cedulaBorrar);//HAY QUE PONER SI DESEA ELIMINAR EL EMPLEADO SI O NO
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No seleccionaste al empleado que deseas eliminar de la planilla");
+        }
+    }//GEN-LAST:event_jbteliminarActionPerformed
+
+    private void jmCrearPlanillaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmCrearPlanillaMousePressed
+        // TODO add your handling code here:
+        if (jmCrearPlanilla.isSelected()) {
+            CardLayout jPanels = (CardLayout) PanelPrincipal.getLayout();
+            jPanels.show(PanelPrincipal, "PanelPlanilla");
+        }
+    }//GEN-LAST:event_jmCrearPlanillaMousePressed
+
+    public void limpiartabla() {
+        DefaultTableModel temp = (DefaultTableModel) tblplanilla.getModel();
+        int filas = tblplanilla.getRowCount();
+
+        for (int a = 0; filas > a; a++) {
+            temp.removeRow(0);
+        }
+    }
 
     /**
      * @param args the command line arguments

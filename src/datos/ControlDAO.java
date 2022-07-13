@@ -193,4 +193,38 @@ public class ControlDAO {
             Conexion.close(conn);
         }
     }
+    public ArrayList  <Planilla> seleccionarPlanillaTotales() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Planilla planilla = null;
+        ArrayList<Planilla> planillaTotal = new ArrayList<>();
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_totales_planilla");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int idPlanilla = rs.getInt("id_planilla");
+                String fecha = rs.getString("fecha");
+                double totalsb = rs.getDouble("total_sb");
+                double totalss = rs.getDouble("total_ss");
+                double totalse = rs.getDouble("total_se");
+                double totalsn = rs.getDouble("total_sn");
+                
+                planilla = new Planilla(idPlanilla, fecha, totalsb, totalss, totalse, totalsn);
+                planillaTotal.add(planilla);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return planillaTotal;
+    }
+    
 }
+        
