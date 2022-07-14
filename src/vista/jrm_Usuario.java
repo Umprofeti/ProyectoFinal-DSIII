@@ -270,34 +270,34 @@ public class jrm_Usuario extends javax.swing.JFrame {
 
     private void btnCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseClicked
         // TODO add your handling code here:
-        Usuarios obj_usuario = new Usuarios();
-        if (!txtUsuario.getText().isEmpty() && !txtCedulaUsuario.getText().isEmpty() && txtPassword.getPassword().length != 0
-                && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() && !txtDireccion.getText().isEmpty()) {
-            obj_usuario.setCedula(String.valueOf(txtCedulaUsuario.getText()));
-            if (obj_usuario.Buscar()) {
-                JOptionPane.showMessageDialog(null, "Este Usuario ya existe");
-            } else {
-
-                obj_usuario.setApellido(String.valueOf(txtApellidoUsuario.getText()));
-                obj_usuario.setNombre(String.valueOf(txtNombreUsuario.getText()));
-                obj_usuario.setDireccion(String.valueOf(txtDireccion.getText()));
-                obj_usuario.setUsuario(String.valueOf(txtUsuario.getText()));
-                obj_usuario.setPassword(String.valueOf(txtPassword.getPassword()));
-                if (obj_usuario.Insertar()) {
-                    JOptionPane.showMessageDialog(null, "Se ha creado el usuario");
-                    txtUsuario.setText("");
-                    txtNombreUsuario.setText("");
-                    txtApellidoUsuario.setText("");
-                    txtCedulaUsuario.setText("");
-                    txtDireccion.setText("");
-                    txtPassword.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se podido crear el usuario");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Hay campos vacios!");
-        }
+////        Usuarios obj_usuario = new Usuarios();
+////        if (!txtUsuario.getText().isEmpty() && !txtCedulaUsuario.getText().isEmpty() && txtPassword.getPassword().length != 0
+////                && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() && !txtDireccion.getText().isEmpty()) {
+////            obj_usuario.setCedula(String.valueOf(txtCedulaUsuario.getText()));
+////            if (obj_usuario.Buscar()) {
+////                JOptionPane.showMessageDialog(null, "Este Usuario ya existe");
+////            } else {
+////
+////                obj_usuario.setApellido(String.valueOf(txtApellidoUsuario.getText()));
+////                obj_usuario.setNombre(String.valueOf(txtNombreUsuario.getText()));
+////                obj_usuario.setDireccion(String.valueOf(txtDireccion.getText()));
+////                obj_usuario.setUsuario(String.valueOf(txtUsuario.getText()));
+////                obj_usuario.setPassword(String.valueOf(txtPassword.getPassword()));
+////                if (obj_usuario.Insertar()) {
+////                    JOptionPane.showMessageDialog(null, "Se ha creado el usuario");
+////                    txtUsuario.setText("");
+////                    txtNombreUsuario.setText("");
+////                    txtApellidoUsuario.setText("");
+////                    txtCedulaUsuario.setText("");
+////                    txtDireccion.setText("");
+////                    txtPassword.setText("");
+////                } else {
+////                    JOptionPane.showMessageDialog(null, "No se podido crear el usuario");
+////                }
+////            }
+////        } else {
+////            JOptionPane.showMessageDialog(null, "Hay campos vacios!");
+////        }
     }//GEN-LAST:event_btnCrearUsuarioMouseClicked
 
     private void txtNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreUsuarioActionPerformed

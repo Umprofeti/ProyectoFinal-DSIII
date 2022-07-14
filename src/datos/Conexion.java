@@ -4,10 +4,10 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Conexion {
+public class Conexion {// esta clase solo se encarga de hacer conexión con la base de datos
     private static final String JDBC_URL = "jdbc:mysql://localhost/semestral";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "admin";
+    private static final String JDBC_USER = "root";//si no les deja entrar, ingresen aquí su usuario de su DB
+    private static final String JDBC_PASSWORD = "admin";//si no les deja entrar, ingresen aquí su contraseña de su DB
     
     public static Connection getConnection() throws SQLException{
         try {

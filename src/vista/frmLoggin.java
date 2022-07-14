@@ -204,24 +204,24 @@ public class frmLoggin extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-        if(main.Proyecto01.usrLogin.findUserID(nomusuariotxtf.getText())){
-            if(main.Proyecto01.usrLogin.isUserRoot(nomusuariotxtf.getText())){
-               
-                if(main.Proyecto01.usrLogin.isValidPassword(nomusuariotxtf.getText(), new String(tfUserPass.getPassword()))){
-                    frmLobby lobby = new frmLobby(nomusuariotxtf.getText().trim());
-                    lobby.setVisible(true);
-                    lobby.setTitle("Panel principal");
-                    setVisible(false);
-                }
-            }else{
-                if(main.Proyecto01.usrLogin.isValidPassword(nomusuariotxtf.getText(), new String(tfUserPass.getPassword()))){
-                    frmLobby lobby = new frmLobby(nomusuariotxtf.getText().trim());
-                    lobby.setVisible(true);
-                    lobby.setTitle("Panel principal");
-                    setVisible(false);
-                }
-            }
-        }
+//        if(main.Proyecto01.usrLogin.findUserID(nomusuariotxtf.getText())){
+//            if(main.Proyecto01.usrLogin.isUserRoot(nomusuariotxtf.getText())){
+//               
+//                if(main.Proyecto01.usrLogin.isValidPassword(nomusuariotxtf.getText(), new String(tfUserPass.getPassword()))){
+//                    frmLobby lobby = new frmLobby(nomusuariotxtf.getText().trim());
+//                    lobby.setVisible(true);
+//                    lobby.setTitle("Panel principal");
+//                    setVisible(false);
+//                }
+//            }else{
+//                if(main.Proyecto01.usrLogin.isValidPassword(nomusuariotxtf.getText(), new String(tfUserPass.getPassword()))){
+//                    frmLobby lobby = new frmLobby(nomusuariotxtf.getText().trim());
+//                    lobby.setVisible(true);
+//                    lobby.setTitle("Panel principal");
+//                    setVisible(false);
+//                }
+//            }
+//        }
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**

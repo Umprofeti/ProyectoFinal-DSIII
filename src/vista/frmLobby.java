@@ -6,6 +6,8 @@ package vista;
 
 import controlador.Empleado;
 import controlador.Planilla;
+import controlador.Usuario;
+import datos.ControlDAO;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class frmLobby extends javax.swing.JFrame {
 
     private String user;
+    boolean updateEmpleado;
 
     /**
      * Creates new form frmLobby
@@ -48,24 +51,24 @@ public class frmLobby extends javax.swing.JFrame {
         bg = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         lblCedula = new javax.swing.JLabel();
-        txtCedula = new javax.swing.JTextField();
+        txtCedulaBuscar = new javax.swing.JTextField();
         btnBuscarEmpleado = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        labelBuscar = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblcedula = new javax.swing.JLabel();
-        txtCedulaEmpleado = new javax.swing.JTextField();
+        txtCedulaBuscado = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        txtNombre1 = new javax.swing.JTextField();
+        txtPrimerNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNombre2 = new javax.swing.JTextField();
+        txtSegundoNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtApellido1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtApellido2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        cmbAnio = new javax.swing.JComboBox<>();
-        cmbMes = new javax.swing.JComboBox<>();
-        cmbDia = new javax.swing.JComboBox<>();
+        cbAnio = new javax.swing.JComboBox<>();
+        cbMes = new javax.swing.JComboBox<>();
+        cbDia = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -77,10 +80,12 @@ public class frmLobby extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
-        btnInsertar = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
+        labelGuardarBoton = new javax.swing.JLabel();
+        btnNuevo = new javax.swing.JPanel();
+        labelNuevoBoton = new javax.swing.JLabel();
+        btnEditar = new javax.swing.JPanel();
+        labelEditarBoton = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -103,16 +108,20 @@ public class frmLobby extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
+        txtUsuarioID = new javax.swing.JTextField();
         txtNombreUsuario = new javax.swing.JTextField();
         txtApellidoUsuario = new javax.swing.JTextField();
         txtCedulaUsuario = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JPasswordField();
-        txtDireccion1 = new javax.swing.JTextField();
+        txtPasswordUsuario = new javax.swing.JPasswordField();
+        txtDireccionUsuario = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         btnCrearUsuario = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JLabel();
+        cbAnioUsuario = new javax.swing.JComboBox<>();
+        cbMesUsuario = new javax.swing.JComboBox<>();
+        cbDiaUsuario = new javax.swing.JComboBox<>();
+        jLabel31 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jPanelPlanilla = new javax.swing.JPanel();
@@ -154,14 +163,14 @@ public class frmLobby extends javax.swing.JFrame {
         lblCedula.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         lblCedula.setText("Ingrese la cédula:");
 
-        txtCedula.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+        txtCedulaBuscar.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        txtCedulaBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCedulaActionPerformed(evt);
+                txtCedulaBuscarActionPerformed(evt);
             }
         });
 
-        btnBuscarEmpleado.setBackground(new java.awt.Color(204, 204, 204));
+        btnBuscarEmpleado.setBackground(new java.awt.Color(0, 0, 0));
         btnBuscarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnBuscarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -169,24 +178,25 @@ public class frmLobby extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        jLabel8.setText("Buscar");
+        labelBuscar.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        labelBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        labelBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelBuscar.setText("Buscar");
+        labelBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelBuscarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnBuscarEmpleadoLayout = new javax.swing.GroupLayout(btnBuscarEmpleado);
         btnBuscarEmpleado.setLayout(btnBuscarEmpleadoLayout);
         btnBuscarEmpleadoLayout.setHorizontalGroup(
             btnBuscarEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnBuscarEmpleadoLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel8)
-                .addContainerGap(23, Short.MAX_VALUE))
+            .addComponent(labelBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
         );
         btnBuscarEmpleadoLayout.setVerticalGroup(
             btnBuscarEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnBuscarEmpleadoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(labelBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -197,7 +207,7 @@ public class frmLobby extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(lblCedula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCedulaBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
@@ -205,15 +215,12 @@ public class frmLobby extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnBuscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCedulaBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -224,68 +231,78 @@ public class frmLobby extends javax.swing.JFrame {
         lblcedula.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         lblcedula.setText("Cédula");
 
-        txtCedulaEmpleado.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        txtCedulaEmpleado.setBorder(null);
+        txtCedulaBuscado.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        txtCedulaBuscado.setBorder(null);
+        txtCedulaBuscado.setEnabled(false);
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel1.setText("Primer Nombre");
 
-        txtNombre1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        txtNombre1.setBorder(null);
+        txtPrimerNombre.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        txtPrimerNombre.setBorder(null);
+        txtPrimerNombre.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel2.setText("Segundo Nombre");
 
-        txtNombre2.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        txtNombre2.setBorder(null);
+        txtSegundoNombre.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        txtSegundoNombre.setBorder(null);
+        txtSegundoNombre.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel3.setText("Primer Apellido");
 
         txtApellido1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         txtApellido1.setBorder(null);
+        txtApellido1.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel4.setText("Segundo Apellido");
 
         txtApellido2.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         txtApellido2.setBorder(null);
+        txtApellido2.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel5.setText("Fecha de nacimiento ");
 
-        cmbAnio.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        cmbAnio.setMaximumRowCount(11);
-        cmbAnio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022" }));
-        cmbAnio.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.black, null));
-        cmbAnio.addActionListener(new java.awt.event.ActionListener() {
+        cbAnio.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        cbAnio.setMaximumRowCount(11);
+        cbAnio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "1940", "1941", "1942", "1943", "1944", "1945", "1946", "1947", "1948", "1949", "1950", "1951", "1952", "1953", "1954", "1955", "1956", "1957", "1958", "1959", "1960", "1961", "1962", "1963", "1964", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022" }));
+        cbAnio.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, java.awt.Color.black, null));
+        cbAnio.setEnabled(false);
+        cbAnio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbAnioActionPerformed(evt);
+                cbAnioActionPerformed(evt);
             }
         });
 
-        cmbMes.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        cmbMes.setMaximumRowCount(13);
-        cmbMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
-        cmbMes.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.black, null));
+        cbMes.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        cbMes.setMaximumRowCount(13);
+        cbMes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+        cbMes.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.black, null));
+        cbMes.setEnabled(false);
 
-        cmbDia.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        cmbDia.setMaximumRowCount(12);
-        cmbDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        cmbDia.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), null));
-        cmbDia.setName("Día"); // NOI18N
+        cbDia.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        cbDia.setMaximumRowCount(12);
+        cbDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+        cbDia.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 0), null));
+        cbDia.setEnabled(false);
+        cbDia.setName("Día"); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel6.setText("Dirección");
 
         txtDireccion.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         txtDireccion.setBorder(null);
+        txtDireccion.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel7.setText("Teléfono");
 
         txtTelefono.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         txtTelefono.setBorder(null);
+        txtTelefono.setEnabled(false);
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -301,60 +318,90 @@ public class frmLobby extends javax.swing.JFrame {
 
         jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
 
-        btnInsertar.setBackground(new java.awt.Color(204, 204, 204));
-        btnInsertar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnInsertar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInsertarMouseClicked(evt);
-            }
-        });
-
-        jLabel19.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        jLabel19.setText("Insertar");
-
-        javax.swing.GroupLayout btnInsertarLayout = new javax.swing.GroupLayout(btnInsertar);
-        btnInsertar.setLayout(btnInsertarLayout);
-        btnInsertarLayout.setHorizontalGroup(
-            btnInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInsertarLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel19)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        btnInsertarLayout.setVerticalGroup(
-            btnInsertarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnInsertarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel19)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        btnGuardar.setBackground(new java.awt.Color(204, 204, 204));
+        btnGuardar.setBackground(new java.awt.Color(0, 0, 0));
         btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGuardar.setEnabled(false);
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnGuardarMouseClicked(evt);
             }
         });
 
-        jLabel20.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        jLabel20.setText("Guardar");
+        labelGuardarBoton.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        labelGuardarBoton.setForeground(new java.awt.Color(255, 255, 255));
+        labelGuardarBoton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelGuardarBoton.setText("Guardar");
+        labelGuardarBoton.setEnabled(false);
+        labelGuardarBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelGuardarBotonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout btnGuardarLayout = new javax.swing.GroupLayout(btnGuardar);
         btnGuardar.setLayout(btnGuardarLayout);
         btnGuardarLayout.setHorizontalGroup(
             btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardarLayout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel20)
-                .addContainerGap(21, Short.MAX_VALUE))
+            .addComponent(labelGuardarBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
         );
         btnGuardarLayout.setVerticalGroup(
             btnGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btnGuardarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(labelGuardarBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+        );
+
+        btnNuevo.setBackground(new java.awt.Color(0, 0, 0));
+        btnNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        labelNuevoBoton.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        labelNuevoBoton.setForeground(new java.awt.Color(255, 255, 255));
+        labelNuevoBoton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelNuevoBoton.setText("Nuevo");
+        labelNuevoBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelNuevoBotonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnNuevoLayout = new javax.swing.GroupLayout(btnNuevo);
+        btnNuevo.setLayout(btnNuevoLayout);
+        btnNuevoLayout.setHorizontalGroup(
+            btnNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelNuevoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+        );
+        btnNuevoLayout.setVerticalGroup(
+            btnNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelNuevoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        btnEditar.setBackground(new java.awt.Color(0, 0, 0));
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEditar.setEnabled(false);
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
+        });
+
+        labelEditarBoton.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        labelEditarBoton.setForeground(new java.awt.Color(255, 255, 255));
+        labelEditarBoton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelEditarBoton.setText("Editar");
+        labelEditarBoton.setEnabled(false);
+        labelEditarBoton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelEditarBotonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btnEditarLayout = new javax.swing.GroupLayout(btnEditar);
+        btnEditar.setLayout(btnEditarLayout);
+        btnEditarLayout.setHorizontalGroup(
+            btnEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelEditarBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+        );
+        btnEditarLayout.setVerticalGroup(
+            btnEditarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelEditarBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -372,11 +419,11 @@ public class frmLobby extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(cmbAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                                .addComponent(cmbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                                .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(cmbDia, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbDia, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
@@ -396,21 +443,27 @@ public class frmLobby extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1)
                             .addComponent(txtApellido1)
-                            .addComponent(txtNombre2)
-                            .addComponent(txtNombre1)
-                            .addComponent(txtCedulaEmpleado)
+                            .addComponent(txtSegundoNombre)
+                            .addComponent(txtPrimerNombre)
+                            .addComponent(txtCedulaBuscado)
                             .addComponent(jSeparator2)
                             .addComponent(jSeparator3)
                             .addComponent(jSeparator4)
                             .addComponent(txtApellido2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator5))))
                 .addGap(48, 48, 48))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(445, 445, 445))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,19 +471,19 @@ public class frmLobby extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblcedula)
-                    .addComponent(txtCedulaEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCedulaBuscado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(7, 7, 7)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrimerNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSegundoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -447,10 +500,10 @@ public class frmLobby extends javax.swing.JFrame {
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(cmbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbDia))
+                    .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDia))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -465,8 +518,9 @@ public class frmLobby extends javax.swing.JFrame {
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnInsertar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
 
@@ -546,9 +600,9 @@ public class frmLobby extends javax.swing.JFrame {
         jLabel27.setFont(new java.awt.Font("Roboto Black", 0, 16)); // NOI18N
         jLabel27.setText("Dirección");
 
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+        txtUsuarioID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
+                txtUsuarioIDActionPerformed(evt);
             }
         });
 
@@ -608,18 +662,35 @@ public class frmLobby extends javax.swing.JFrame {
             .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
 
+        cbAnioUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Año", "1997", "1998", "1999", "2000", "2001", "2002", "2003", " " }));
+
+        cbMesUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mes", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
+
+        cbDiaUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Día", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        jLabel31.setFont(new java.awt.Font("Roboto Black", 0, 16)); // NOI18N
+        jLabel31.setText("Fecha ingreso");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbAnioUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbMesUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbDiaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 214, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel22)
                             .addComponent(jLabel23)
@@ -632,9 +703,9 @@ public class frmLobby extends javax.swing.JFrame {
                             .addComponent(txtCedulaUsuario)
                             .addComponent(txtApellidoUsuario)
                             .addComponent(txtNombreUsuario)
-                            .addComponent(txtUsuario)
-                            .addComponent(txtPassword)
-                            .addComponent(txtDireccion1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))))
+                            .addComponent(txtUsuarioID)
+                            .addComponent(txtPasswordUsuario)
+                            .addComponent(txtDireccionUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))))
                 .addGap(41, 41, 41))
         );
         jPanel5Layout.setVerticalGroup(
@@ -645,7 +716,7 @@ public class frmLobby extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel22))
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsuarioID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -663,7 +734,7 @@ public class frmLobby extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel25))
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPasswordUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -675,8 +746,14 @@ public class frmLobby extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel27))
-                    .addComponent(txtDireccion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                    .addComponent(txtDireccionUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbMesUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDiaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbAnioUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -890,184 +967,65 @@ public class frmLobby extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmSalirMousePressed
 
-    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+    private void txtCedulaBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCedulaActionPerformed
+    }//GEN-LAST:event_txtCedulaBuscarActionPerformed
 
-    private void btnBuscarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoMouseClicked
+    private void cbAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAnioActionPerformed
         // TODO add your handling code here:
-        controlador.Empleado empleado = new controlador.Empleado();
-        ArrayList<Empleado> lista = new ArrayList<>();
-        String cedulatxt = String.valueOf(txtCedula.getText());
-        if (!cedulatxt.equals("")) {
-            empleado.setCedula(String.valueOf(txtCedula.getText()));
-            if (empleado.BuscarEmpleado()) {
-                lista = empleado.MostrarTodo();
-                for (int i = 0; i < lista.size(); i++) {
-                    if (lista.get(i).getCedula().equals(cedulatxt)) {
-                        txtCedulaEmpleado.setEnabled(false);
-                        txtCedulaEmpleado.setText(cedulatxt);
-                        txtNombre1.setText(lista.get(i).getPrimerNombre());
-                        txtNombre2.setText(lista.get(i).getSegundoNombre());
-                        txtApellido1.setText(lista.get(i).getPrimerApellido());
-                        txtApellido2.setText(lista.get(i).getSegundoApellido());
-                        String anio, mes, dia;
-                        String fecha = lista.get(i).getFecha_nacimiento();
-                        anio = fecha.substring(0, 4);
-                        mes = fecha.substring(5, 7);
-                        dia = fecha.substring(8, 10);
-                        cmbAnio.setSelectedItem(anio);
-                        cmbMes.setSelectedItem(mes);
-                        cmbDia.setSelectedItem(dia);
-                        txtDireccion.setText(lista.get(i).getDireccion());
-                        txtTelefono.setText(lista.get(i).getTelefono());
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe empleado con esa cédula.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "El campo cédula del empleado a buscar está vacío");
-        }
-    }//GEN-LAST:event_btnBuscarEmpleadoMouseClicked
+    }//GEN-LAST:event_cbAnioActionPerformed
 
-    private void cmbAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAnioActionPerformed
+    private void txtUsuarioIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbAnioActionPerformed
-
-    private void btnInsertarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertarMouseClicked
-        // TODO add your handling code here:
-        controlador.Empleado obj_empleado = new controlador.Empleado();
-        if (!txtCedulaEmpleado.getText().isEmpty() && !txtNombre1.getText().isEmpty() && !txtNombre2.getText().isEmpty() && !txtApellido1.getText().isEmpty()
-                && !txtApellido2.getText().isEmpty() && !cmbDia.getSelectedItem().equals("") && !cmbMes.getSelectedItem().equals("")
-                && !cmbAnio.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()
-                && !cmbAnio.getSelectedItem().equals("Año") && !cmbMes.getSelectedItem().equals("Mes") && !cmbDia.getSelectedItem().equals("Día")) {
-
-            obj_empleado.setCedula(String.valueOf(txtCedulaEmpleado.getText()));
-            if (obj_empleado.BuscarEmpleado()) {
-                JOptionPane.showMessageDialog(null, "Este empleado ya existe");
-            } else {
-                obj_empleado.setPrimerNombre(String.valueOf(txtNombre1.getText()));
-                obj_empleado.setSegundoNombre(String.valueOf(txtNombre2.getText()));
-                obj_empleado.setPrimerApellido(String.valueOf(txtApellido1.getText()));
-                obj_empleado.setSegundoApellido(String.valueOf(txtApellido2.getText()));
-                String anio = String.valueOf(cmbAnio.getSelectedItem());
-                String mes = String.valueOf(cmbMes.getSelectedItem());
-                String dia = String.valueOf(cmbDia.getSelectedItem());
-                obj_empleado.setFecha_nacimiento(anio + "-" + mes + "-" + dia);
-                obj_empleado.setDireccion(String.valueOf(txtDireccion.getText()));
-                obj_empleado.setTelefono(String.valueOf(txtTelefono.getText()));
-                if (obj_empleado.Insertar()) {
-                    JOptionPane.showMessageDialog(null, "Se ha creado el empleado");
-                    txtCedula.setText("");
-                    txtCedulaEmpleado.setText("");
-                    txtCedulaEmpleado.setEnabled(true);
-                    txtNombre1.setText("");
-                    txtNombre2.setText("");
-                    txtApellido1.setText("");
-                    txtApellido2.setText("");
-                    txtDireccion.setText("");
-                    txtTelefono.setText("");
-                    cmbAnio.setSelectedIndex(0);
-                    cmbMes.setSelectedIndex(0);
-                    cmbDia.setSelectedIndex(0);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se podido crear el empleado");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "¡Hay campos vacios!");
-        }
-    }//GEN-LAST:event_btnInsertarMouseClicked
-
-    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
-        // TODO add your handling code here:
-        controlador.Empleado empleado = new controlador.Empleado();
-        if (!txtCedulaEmpleado.getText().isEmpty() && !txtNombre1.getText().isEmpty() && !txtNombre2.getText().isEmpty() && !txtApellido1.getText().isEmpty()
-                && !txtApellido2.getText().isEmpty() && !cmbDia.getSelectedItem().equals("") && !cmbMes.getSelectedItem().equals("")
-                && !cmbAnio.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
-            empleado.setCedula(String.valueOf(txtCedulaEmpleado.getText()));
-            empleado.setPrimerNombre(String.valueOf(txtNombre1.getText()));
-            empleado.setSegundoNombre(String.valueOf(txtNombre2.getText()));
-            empleado.setPrimerApellido((String.valueOf(txtApellido1.getText())));
-            empleado.setSegundoApellido((String.valueOf(txtApellido2.getText())));
-            String anio = String.valueOf(cmbAnio.getSelectedItem());
-            String mes = String.valueOf(cmbMes.getSelectedItem());
-            String dia = String.valueOf(cmbDia.getSelectedItem());
-            empleado.setFecha_nacimiento(anio + "-" + mes + "-" + dia);
-            empleado.setDireccion(String.valueOf(txtDireccion.getText()));
-            empleado.setTelefono(String.valueOf(txtTelefono.getText()));
-
-            if (empleado.ModificarInfoEmpleado()) {
-                JOptionPane.showMessageDialog(null, "La información se ha modificado correctamente.");
-                txtCedula.setText("");
-                txtCedulaEmpleado.setText("");
-                txtCedulaEmpleado.setEnabled(true);
-                txtNombre1.setText("");
-                txtNombre2.setText("");
-                txtApellido1.setText("");
-                txtApellido2.setText("");
-                txtDireccion.setText("");
-                txtTelefono.setText("");
-                cmbAnio.setSelectedIndex(0);
-                cmbMes.setSelectedIndex(0);
-                cmbDia.setSelectedIndex(0);
-            } else {
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar la modificación");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Hay campos vacios");
-        }
-    }//GEN-LAST:event_btnGuardarMouseClicked
-
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioActionPerformed
+    }//GEN-LAST:event_txtUsuarioIDActionPerformed
 
     private void txtNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreUsuarioActionPerformed
-
+    private void vaciarCamposUsuario(){
+        txtUsuarioID.setText("");
+        txtNombreUsuario.setText("");
+        txtApellidoUsuario.setText("");
+        txtPasswordUsuario.setText("");
+        txtCedulaUsuario.setText("");
+        txtDireccionUsuario.setText("");
+        cbAnioUsuario.setSelectedIndex(0);
+        cbMesUsuario.setSelectedIndex(0);
+        cbDiaUsuario.setSelectedIndex(0);
+    }
     private void btnCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseClicked
         // TODO add your handling code here:
-        controlador.Usuario obj_usuario = new controlador.Usuario();
-        if (!txtUsuario.getText().isEmpty() && !txtCedulaUsuario.getText().isEmpty() && txtPassword.getPassword().length != 0
-                && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() && !txtDireccion1.getText().isEmpty()) {
-            obj_usuario.setCedula(String.valueOf(txtCedulaUsuario.getText()));
-            if (obj_usuario.Buscar()) {
-                JOptionPane.showMessageDialog(null, "Este Usuario ya existe");
-            } else {
-
-                obj_usuario.setApellido(String.valueOf(txtApellidoUsuario.getText()));
-                obj_usuario.setNombre(String.valueOf(txtNombreUsuario.getText()));
-                obj_usuario.setDireccion(String.valueOf(txtDireccion1.getText()));
-                obj_usuario.setUsuario(String.valueOf(txtUsuario.getText()));
-                obj_usuario.setPassword(String.valueOf(txtPassword.getPassword()));
-                if (obj_usuario.Insertar()) {
-                    JOptionPane.showMessageDialog(null, "Se ha creado el usuario");
-                    txtUsuario.setText("");
-                    txtNombreUsuario.setText("");
-                    txtApellidoUsuario.setText("");
-                    txtCedulaUsuario.setText("");
-                    txtDireccion1.setText("");
-                    txtPassword.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se podido crear el usuario");
-                }
+        if(!txtUsuarioID.getText().isEmpty() && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() &&
+                 !txtCedulaUsuario.getText().isEmpty() && !cbAnioUsuario.getSelectedItem().equals("")&& !cbMesUsuario.getSelectedItem().equals("") 
+                && !cbDiaUsuario.getSelectedItem().equals("") && txtPasswordUsuario.getPassword().length != 0){
+            
+            Usuario usuario = new Usuario();
+            ControlDAO control = new ControlDAO();
+            String mensaje = "";
+            usuario.setUsuario(String.valueOf(txtUsuarioID.getText()));
+            usuario.setNombre(String.valueOf(txtNombreUsuario.getText()));
+            usuario.setApellido(String.valueOf(txtApellidoUsuario.getText()));
+            usuario.setPassword(String.valueOf(txtPasswordUsuario.getPassword()));
+            usuario.setCedula(String.valueOf(txtCedulaUsuario.getText()));
+            usuario.setDireccion(String.valueOf(txtDireccionUsuario.getText()));
+            usuario.setFechaIngreso(String.valueOf(cbAnioUsuario.getSelectedItem() + "-"
+                + cbMesUsuario.getSelectedItem() + "-" + cbDiaUsuario.getSelectedItem()));
+            mensaje = control.insertarUsuario(usuario);
+            if(!mensaje.equals("error")){
+                JOptionPane.showMessageDialog(null,"Se agrego el usuario de la cédula " + mensaje +" correctmanete.");
+                this.vaciarCamposUsuario();
+            }else{
+            JOptionPane.showMessageDialog(null,"No se pudo agregar el usuario.");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Hay campos vacios!");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Hay campos vacios.");
         }
     }//GEN-LAST:event_btnCrearUsuarioMouseClicked
 
     private void btnCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMousePressed
         // TODO add your handling code here:
-        txtUsuario.setText("");
-        txtNombreUsuario.setText("");
-        txtApellidoUsuario.setText("");
-        txtCedulaUsuario.setText("");
-        txtDireccion1.setText("");
-        txtPassword.setText("");
+        this.vaciarCamposUsuario();
     }//GEN-LAST:event_btnCancelarMousePressed
 
     private void jmVerEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmVerEmpleadoMousePressed
@@ -1088,19 +1046,19 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void jbteliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbteliminarActionPerformed
         // TODO add your handling code here:
-        controlador.Planilla obj = new controlador.Planilla();
-        int[] borrar = (tblplanilla.getSelectedRows());//Buscamos las filas que fueron seleccionados
-        if (borrar.length != 0) {//Verificamos que se haya seleccionado 1 por lo menos
-            int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas borrar " + borrar.length + " empleado?");
-            if (resp == 0) {
-                for (int i = 0; i < borrar.length; i++) {//Se repite el metodo borrar para borrar a los empleado de la planilla.
-                    String cedulaBorrar = String.valueOf(tblplanilla.getValueAt(borrar[i], 0));
-                    obj.eliminar(cedulaBorrar);//HAY QUE PONER SI DESEA ELIMINAR EL EMPLEADO SI O NO
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No seleccionaste al empleado que deseas eliminar de la planilla");
-        }
+//        Planilla obj = new Planilla();
+//        int[] borrar = (tblplanilla.getSelectedRows());//Buscamos las filas que fueron seleccionados
+//        if (borrar.length != 0) {//Verificamos que se haya seleccionado 1 por lo menos
+//            int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas borrar " + borrar.length + " empleado?");
+//            if (resp == 0) {
+//                for (int i = 0; i < borrar.length; i++) {//Se repite el metodo borrar para borrar a los empleado de la planilla.
+//                    String cedulaBorrar = String.valueOf(tblplanilla.getValueAt(borrar[i], 0));
+//                    obj.eliminar(cedulaBorrar);//HAY QUE PONER SI DESEA ELIMINAR EL EMPLEADO SI O NO
+//                }
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "No seleccionaste al empleado que deseas eliminar de la planilla");
+//        }
     }//GEN-LAST:event_jbteliminarActionPerformed
 
     private void jbtadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtadicionarActionPerformed
@@ -1137,34 +1095,211 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void jbtnactualiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnactualiActionPerformed
         // TODO add your handling code here://
-        ArrayList<controlador.Planilla> planilla = new ArrayList<>();
-        this.limpiartabla();//Primero se limpia la planilla
-        controlador.Planilla obj_dato = new controlador.Planilla();
+//        ArrayList<controlador.Planilla> planilla = new ArrayList<>();
+//        this.limpiartabla();//Primero se limpia la planilla
+//        controlador.Planilla obj_dato = new controlador.Planilla();
+//
+//        if (obj_dato.ExistePlanilla()) {//Se verifica que ya exista un fichero planilla.
+//            planilla = obj_dato.MostrarTodo();
+//            DefaultTableModel model = (DefaultTableModel) tblplanilla.getModel();
+//
+//            for (int i = 0; i < planilla.size(); i++) {//Se agrega todo al arrayList para mostrarlo en la tabla
+//
+//                String[] arreglo = {planilla.get(i).getCedula(),
+//                    planilla.get(i).getNombre(),
+//                    planilla.get(i).getNombre2(),
+//                    planilla.get(i).getApellido(),
+//                    planilla.get(i).getApellido2(),
+//                    String.valueOf(planilla.get(i).getHoratrabjada()),
+//                    String.valueOf(planilla.get(i).getSphora()),
+//                    String.valueOf(planilla.get(i).getSbruto()),
+//                    String.valueOf(planilla.get(i).getSegsocial()),
+//                    String.valueOf(planilla.get(i).getSegeducativo()),
+//                    String.valueOf(planilla.get(i).getSNETO())};
+//
+//                model.addRow(arreglo);
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Aún no se agrego ningún empleado a la planilla.");
+//        }
+    }//GEN-LAST:event_jbtnactualiActionPerformed
 
-        if (obj_dato.ExistePlanilla()) {//Se verifica que ya exista un fichero planilla.
-            planilla = obj_dato.MostrarTodo();
-            DefaultTableModel model = (DefaultTableModel) tblplanilla.getModel();
+    private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
+        // TODO add your handling code here:
 
-            for (int i = 0; i < planilla.size(); i++) {//Se agrega todo al arrayList para mostrarlo en la tabla
+    }//GEN-LAST:event_btnGuardarMouseClicked
 
-                String[] arreglo = {planilla.get(i).getCedula(),
-                    planilla.get(i).getPrimerNombre(),
-                    planilla.get(i).getSegundoNombre(),
-                    planilla.get(i).getPrimerApellido(),
-                    planilla.get(i).getSegundoApellido(),
-                    String.valueOf(planilla.get(i).getHoratrabjada()),
-                    String.valueOf(planilla.get(i).getSphora()),
-                    String.valueOf(planilla.get(i).getSbruto()),
-                    String.valueOf(planilla.get(i).getSegsocial()),
-                    String.valueOf(planilla.get(i).getSegeducativo()),
-                    String.valueOf(planilla.get(i).getSNETO())};
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        // TODO add your handling code here:
 
-                model.addRow(arreglo);
+    }//GEN-LAST:event_btnEditarMouseClicked
+
+    private void btnBuscarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_btnBuscarEmpleadoMouseClicked
+
+    private void labelBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBuscarMouseClicked
+        // TODO add your handling code here:
+        ControlDAO control = new ControlDAO();
+        Empleado empleado = new Empleado();
+        if (!txtCedulaBuscar.getText().isEmpty()) {
+            empleado = control.seleccionarEmpleadoID(String.valueOf(txtCedulaBuscar.getText()));
+            if (empleado != null) {
+                labelEditarBoton.setEnabled(true);
+                txtCedulaBuscado.setText(empleado.getCedula());
+                txtCedulaBuscar.setEnabled(false);
+                txtPrimerNombre.setText(empleado.getPrimerNombre());
+                txtSegundoNombre.setText(empleado.getSegundoNombre());
+                txtApellido1.setText(empleado.getPrimerApellido());
+                txtApellido2.setText(empleado.getSegundoApellido());
+                cbAnio.setSelectedItem(empleado.getFecha_nacimiento().substring(0, 4));
+                cbMes.setSelectedItem(empleado.getFecha_nacimiento().substring(5, 7));
+                String dia = empleado.getFecha_nacimiento().substring(8, 10);
+                cbDia.setSelectedItem(dia);
+                txtDireccion.setText(empleado.getDireccion());
+                txtTelefono.setText(empleado.getTelefono());
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo encontrar al empleado que desea buscar.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Aún no se agrego ningún empleado a la planilla.");
+            JOptionPane.showMessageDialog(null, "No ingresaste la cédula del empleado que deseas buscar.");
         }
-    }//GEN-LAST:event_jbtnactualiActionPerformed
+    }//GEN-LAST:event_labelBuscarMouseClicked
+
+    private void labelNuevoBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelNuevoBotonMouseClicked
+        // TODO add your handling code here:
+        this.vaciarCampos();
+        labelBuscar.setEnabled(false);
+        labelNuevoBoton.setEnabled(false);
+        txtCedulaBuscado.setEnabled(true);
+        txtPrimerNombre.setEnabled(true);
+        txtSegundoNombre.setEnabled(true);
+        txtApellido1.setEnabled(true);
+        txtApellido2.setEnabled(true);
+        txtCedulaBuscar.setEnabled(false);
+        cbAnio.setEnabled(true);
+        cbMes.setEnabled(true);
+        cbDia.setEnabled(true);
+        txtDireccion.setEnabled(true);
+        txtTelefono.setEnabled(true);
+        labelGuardarBoton.setEnabled(true);
+        labelEditarBoton.setEnabled(false);
+    }//GEN-LAST:event_labelNuevoBotonMouseClicked
+
+    private void labelEditarBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelEditarBotonMouseClicked
+        // TODO add your handling code here:
+        txtCedulaBuscado.setEnabled(false);
+        txtPrimerNombre.setEnabled(true);
+        txtSegundoNombre.setEnabled(true);
+        txtApellido1.setEnabled(true);
+        txtApellido2.setEnabled(true);
+        cbAnio.setEnabled(true);
+        cbMes.setEnabled(true);
+        cbDia.setEnabled(true);
+        txtDireccion.setEnabled(true);
+        txtTelefono.setEnabled(true);
+        txtCedulaBuscar.setEnabled(false);
+        txtCedulaBuscar.setText("");
+        labelBuscar.setEnabled(false);
+        labelGuardarBoton.setEnabled(true);
+        labelNuevoBoton.setEnabled(false);
+        updateEmpleado = true;
+        labelEditarBoton.setEnabled(false);
+    }//GEN-LAST:event_labelEditarBotonMouseClicked
+
+    private void vaciarCampos(){
+        txtCedulaBuscar.setText("");
+        txtCedulaBuscado.setText("");
+        txtPrimerNombre.setText("");
+        txtSegundoNombre.setText("");
+        txtApellido1.setText("");
+        txtApellido2.setText("");
+        cbAnio.setSelectedIndex(0);
+        cbMes.setSelectedIndex(0);
+        cbDia.setSelectedIndex(0);
+        txtDireccion.setText("");
+        txtTelefono.setText("");
+    }
+    private void reiniciarCampos(){
+        txtCedulaBuscar.setEnabled(true);
+    txtCedulaBuscado.setEnabled(false);
+        txtPrimerNombre.setEnabled(false);
+        txtSegundoNombre.setEnabled(false);
+        txtApellido1.setEnabled(false);
+        txtApellido2.setEnabled(false);
+        cbAnio.setEnabled(false);
+        cbMes.setEnabled(false);
+        cbDia.setEnabled(false);
+        txtDireccion.setEnabled(false);
+        txtTelefono.setEnabled(false);
+        labelNuevoBoton.setEnabled(true);
+        labelEditarBoton.setEnabled(false);
+        labelGuardarBoton.setEnabled(false);
+        labelBuscar.setEnabled(true);
+    }
+       private boolean verificarCampos() {
+        if (!txtCedulaBuscado.getText().isEmpty() && !txtPrimerNombre.getText().isEmpty() && !txtSegundoNombre.getText().isEmpty() && !txtApellido1.getText().isEmpty()
+                && !txtApellido2.getText().isEmpty() && !cbAnio.getSelectedItem().equals("") && !cbMes.getSelectedItem().equals("")
+                && !cbDia.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+       private Empleado insertarCamposEmpleado(Empleado empleado) {
+
+        empleado.setCedula(String.valueOf(txtCedulaBuscado.getText()));
+        empleado.setPrimerNombre(String.valueOf(txtPrimerNombre.getText()));
+        empleado.setSegundoNombre(String.valueOf(txtSegundoNombre.getText()));
+        empleado.setPrimerApellido(String.valueOf(txtApellido1.getText()));
+        empleado.setSegundoApellido(String.valueOf(txtApellido2.getText()));
+        empleado.setFecha_nacimiento(String.valueOf(cbAnio.getSelectedItem() + "-"
+                + cbMes.getSelectedItem() + "-" + cbDia.getSelectedItem()));
+        empleado.setDireccion(String.valueOf(txtDireccion.getText()));
+        empleado.setTelefono(String.valueOf(txtTelefono.getText()));
+        return empleado;
+    }
+    private void labelGuardarBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelGuardarBotonMouseClicked
+        // TODO add your handling code here:
+        ControlDAO control = new ControlDAO();
+        Empleado empleado = new Empleado();
+        String mensaje ="";
+        if (updateEmpleado != true) {
+            if (!this.verificarCampos()) {
+                empleado = this.insertarCamposEmpleado(empleado);
+                mensaje = control.insertarEmpleado(empleado);
+                if(!mensaje.equals("error")){
+                    this.vaciarCampos();
+                    JOptionPane.showMessageDialog(null, "Se agrego el empleado con la cédula " + mensaje+ " correctamente.");
+                    labelNuevoBoton.setEnabled(true);
+                    labelBuscar.setEnabled(true);
+                    this.reiniciarCampos();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ya existe un empleado con esa cédula.");
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Hay campos vacios.");
+            }
+        } else {
+            updateEmpleado = false;//Regresamos la variable updateEmpleado a falso porque se quedaría en true y
+                                   // estaría siempre actualizando en lugar de guardar cuando solo se quiere guardar
+            if (!this.verificarCampos()) {
+                empleado = this.insertarCamposEmpleado(empleado);
+                mensaje = control.actualizarEmpleado(empleado);
+                if(!mensaje.equals("error")){
+                    this.vaciarCampos();
+                    JOptionPane.showMessageDialog(null, "Se actualizo el empleado con la cédula " + mensaje+ " correctamente.");
+                    this.reiniciarCampos();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Hubo un problema al intentar actualizar el empleado.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Hay campos vacios.");
+            }
+        }
+    }//GEN-LAST:event_labelGuardarBotonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1208,11 +1343,15 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JPanel btnBuscarEmpleado;
     private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel btnCrearUsuario;
+    private javax.swing.JPanel btnEditar;
     private javax.swing.JPanel btnGuardar;
-    private javax.swing.JPanel btnInsertar;
-    private javax.swing.JComboBox<String> cmbAnio;
-    private javax.swing.JComboBox<String> cmbDia;
-    private javax.swing.JComboBox<String> cmbMes;
+    private javax.swing.JPanel btnNuevo;
+    private javax.swing.JComboBox<String> cbAnio;
+    private javax.swing.JComboBox<String> cbAnioUsuario;
+    private javax.swing.JComboBox<String> cbDia;
+    private javax.swing.JComboBox<String> cbDiaUsuario;
+    private javax.swing.JComboBox<String> cbMes;
+    private javax.swing.JComboBox<String> cbMesUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1223,9 +1362,7 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -1237,12 +1374,12 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -1271,6 +1408,10 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JMenu jmCrearUsuario;
     private javax.swing.JMenu jmSalir;
     private javax.swing.JMenu jmVerEmpleado;
+    private javax.swing.JLabel labelBuscar;
+    private javax.swing.JLabel labelEditarBoton;
+    private javax.swing.JLabel labelGuardarBoton;
+    private javax.swing.JLabel labelNuevoBoton;
     private javax.swing.JLabel labelfondo;
     private javax.swing.JLabel labelfondo1;
     private javax.swing.JLabel labelfondo2;
@@ -1281,16 +1422,16 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JTextField txtApellido1;
     private javax.swing.JTextField txtApellido2;
     private javax.swing.JTextField txtApellidoUsuario;
-    private javax.swing.JTextField txtCedula;
-    private javax.swing.JTextField txtCedulaEmpleado;
+    private javax.swing.JTextField txtCedulaBuscado;
+    private javax.swing.JTextField txtCedulaBuscar;
     private javax.swing.JTextField txtCedulaUsuario;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccion1;
-    private javax.swing.JTextField txtNombre1;
-    private javax.swing.JTextField txtNombre2;
+    private javax.swing.JTextField txtDireccionUsuario;
     private javax.swing.JTextField txtNombreUsuario;
-    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtPasswordUsuario;
+    private javax.swing.JTextField txtPrimerNombre;
+    private javax.swing.JTextField txtSegundoNombre;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtUsuarioID;
     // End of variables declaration//GEN-END:variables
 }

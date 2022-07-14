@@ -80,6 +80,8 @@ public class Usuario {
         this.fechaIngreso = fechaIngreso;
     }
     
+    
+    
     public String getEncodedPassword(String password) {
         String pass = Base64.getEncoder().encodeToString(password.getBytes());
         return pass;
