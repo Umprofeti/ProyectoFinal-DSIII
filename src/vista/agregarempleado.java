@@ -4,6 +4,7 @@
  */
 package vista;
 
+import controlador.Planilla;
 import controlador.*;
 import datos.ControlDAO;
 import java.util.ArrayList;

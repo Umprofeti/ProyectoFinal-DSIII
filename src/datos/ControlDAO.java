@@ -329,4 +329,29 @@ public class ControlDAO {
         return planillaTotal;
     }
 
+     public boolean verificarDatosLogin(String user, String Password){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs;
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_validar_usuario(?,?)");
+            ps.setString(1, user);
+            ps.setString(2, Password);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString("numero").equals("1")){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("ex = " + ex);
+        } finally {
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return false;
+    }
 }

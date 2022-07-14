@@ -115,19 +115,17 @@ public class frmLobby extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        jPanelPlanilla = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel28 = new javax.swing.JLabel();
-        jbteliminar = new javax.swing.JButton();
-        jbtadicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblplanilla = new javax.swing.JTable();
-        jbtnactuali = new javax.swing.JButton();
-        labelfondo = new javax.swing.JLabel();
-        labelfondo1 = new javax.swing.JLabel();
+        tbl_planilla = new javax.swing.JTable();
+        jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        labelfondo2 = new javax.swing.JLabel();
-        labelfondo3 = new javax.swing.JLabel();
+        planlillaprincipal = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jmCrearUsuario = new javax.swing.JMenu();
         jmVerEmpleado = new javax.swing.JMenu();
@@ -723,102 +721,80 @@ public class frmLobby extends javax.swing.JFrame {
 
         PanelPrincipal.add(jPanelCrearUsuario, "jPanelCrearUsuarios");
 
-        jPanelPlanilla.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jPanel1FocusGained(evt);
-            }
-        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel28.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setText("CALCULO DE PLANILLA");
-        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 21, -1, -1));
-
-        jbteliminar.setBackground(new java.awt.Color(153, 255, 255));
-        jbteliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jbteliminar.setText("- Eliminar Empleado");
-        jbteliminar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jbteliminar.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setBackground(new java.awt.Color(102, 255, 255));
+        jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton1.setText("CREAR");
+        jButton1.setBorder(new javax.swing.border.MatteBorder(null));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbteliminarActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jbteliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 64, 131, 30));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 80, 30));
 
-        jbtadicionar.setBackground(new java.awt.Color(153, 255, 255));
-        jbtadicionar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jbtadicionar.setText("+ Adicionar Empleado");
-        jbtadicionar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jbtadicionar.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setBackground(new java.awt.Color(51, 255, 255));
+        jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton3.setText("CERRAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtadicionarActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtadicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 64, 142, 30));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, 90, 30));
 
-        tblplanilla.setBackground(java.awt.SystemColor.control);
-        tblplanilla.setForeground(new java.awt.Color(153, 153, 0));
-        tblplanilla.setModel(new javax.swing.table.DefaultTableModel(
+        jButton2.setBackground(new java.awt.Color(51, 255, 255));
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton2.setText("VER");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 80, 30));
+
+        jLabel28.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel28.setText("PLANILLA");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 190, -1));
+
+        tbl_planilla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        tbl_planilla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "  CEDULA", " NOMBRE 1", " NOMBRE 2", " APELLIDO 1", " APELLIDO 2", "      HT", "     SxH", "SALARIO BRUTO ", "       SS", "       SE", "SALARIO NETO"
+                "ID Planilla", "Fecha", "T.S.Bruto", "T.S.S", "T.E.E", "T.S.N"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
+        ));
+        jScrollPane1.setViewportView(tbl_planilla);
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tblplanilla.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(tblplanilla);
-        tblplanilla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (tblplanilla.getColumnModel().getColumnCount() > 0) {
-            tblplanilla.getColumnModel().getColumn(9).setResizable(false);
-        }
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 160));
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 112, 885, 277));
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city_1.png"))); // NOI18N
+        jPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 370));
 
-        jbtnactuali.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jbtnactuali.setText("Actualizar");
-        jbtnactuali.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jbtnactuali.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnactualiActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jbtnactuali, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 80, 30));
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city_1.png"))); // NOI18N
+        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 180, 370));
 
-        labelfondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city_1.png"))); // NOI18N
-        labelfondo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(labelfondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 370, 490));
+        javax.swing.GroupLayout planlillaprincipalLayout = new javax.swing.GroupLayout(planlillaprincipal);
+        planlillaprincipal.setLayout(planlillaprincipalLayout);
+        planlillaprincipalLayout.setHorizontalGroup(
+            planlillaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 470, Short.MAX_VALUE)
+        );
+        planlillaprincipalLayout.setVerticalGroup(
+            planlillaprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 370, Short.MAX_VALUE)
+        );
 
-        labelfondo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city.png"))); // NOI18N
-        labelfondo1.setLabelFor(labelfondo);
-        labelfondo1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(labelfondo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 490));
+        jPanel1.add(planlillaprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 370));
 
-        jLabel32.setFocusable(false);
-        jPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 490));
+        jPanel8.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        labelfondo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city_1.png"))); // NOI18N
-        labelfondo2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(labelfondo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 300, 490));
-
-        labelfondo3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city_1.png"))); // NOI18N
-        labelfondo3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(labelfondo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 0, 370, 490));
-
-        jPanelPlanilla.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, -1));
-
-        PanelPrincipal.add(jPanelPlanilla, "PanelPlanilla");
+        PanelPrincipal.add(jPanel8, "card4");
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setForeground(new java.awt.Color(102, 153, 255));
@@ -1086,67 +1062,6 @@ public class frmLobby extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
-    private void jPanel1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel1FocusGained
-        // TODO add your handling code here:
-        if (jPanel1.isFocusOwner()) {
-            System.out.println("focus obtenido");
-        }
-    }//GEN-LAST:event_jPanel1FocusGained
-
-    private void jbtnactualiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnactualiActionPerformed
-        // TODO add your handling code here://
-//        ArrayList<controlador.Planilla> planilla = new ArrayList<>();
-//        this.limpiartabla();//Primero se limpia la planilla
-//        controlador.Planilla obj_dato = new controlador.Planilla();
-//
-//        if (obj_dato.ExistePlanilla()) {//Se verifica que ya exista un fichero planilla.
-//            planilla = obj_dato.MostrarTodo();
-//            DefaultTableModel model = (DefaultTableModel) tblplanilla.getModel();
-//
-//            for (int i = 0; i < planilla.size(); i++) {//Se agrega todo al arrayList para mostrarlo en la tabla
-//
-//                String[] arreglo = {planilla.get(i).getCedula(),
-//                    planilla.get(i).getPrimerNombre(),
-//                    planilla.get(i).getSegundoNombre(),
-//                    planilla.get(i).getPrimerApellido(),
-//                    planilla.get(i).getSegundoApellido(),
-//                    String.valueOf(planilla.get(i).getHoratrabjada()),
-//                    String.valueOf(planilla.get(i).getSphora()),
-//                    String.valueOf(planilla.get(i).getSbruto()),
-//                    String.valueOf(planilla.get(i).getSegsocial()),
-//                    String.valueOf(planilla.get(i).getSegeducativo()),
-//                    String.valueOf(planilla.get(i).getSNETO())};
-//
-//                model.addRow(arreglo);
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Aún no se agrego ningún empleado a la planilla.");
-//        }
-    }//GEN-LAST:event_jbtnactualiActionPerformed
-
-    private void jbtadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtadicionarActionPerformed
-        // TODO add your handling code here:
-        frmEmpleadoPlanilla obj_añadir = new frmEmpleadoPlanilla();
-        obj_añadir.setVisible(true);
-    }//GEN-LAST:event_jbtadicionarActionPerformed
-
-    private void jbteliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbteliminarActionPerformed
-        // TODO add your handling code here:
-//        controlador.Planilla obj = new controlador.Planilla();
-//        int[] borrar = (tblplanilla.getSelectedRows());//Buscamos las filas que fueron seleccionados
-//        if (borrar.length != 0) {//Verificamos que se haya seleccionado 1 por lo menos
-//            int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas borrar " + borrar.length + " empleado?");
-//            if (resp == 0) {
-//                for (int i = 0; i < borrar.length; i++) {//Se repite el metodo borrar para borrar a los empleado de la planilla.
-//                    String cedulaBorrar = String.valueOf(tblplanilla.getValueAt(borrar[i], 0));
-//                    obj.eliminar(cedulaBorrar);//HAY QUE PONER SI DESEA ELIMINAR EL EMPLEADO SI O NO
-//                }
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "No seleccionaste al empleado que deseas eliminar de la planilla");
-//        }
-    }//GEN-LAST:event_jbteliminarActionPerformed
-
     private void jmCrearPlanillaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmCrearPlanillaMousePressed
         // TODO add your handling code here:
         if (jmCrearPlanilla.isSelected()) {
@@ -1155,9 +1070,34 @@ public class frmLobby extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jmCrearPlanillaMousePressed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int numero = tbl_planilla.getSelectedRow();
+        int planillaSeleccionada = -1;
+
+        if(numero != -1){
+            planillaSeleccionada = listaplanilla.get(numero).getIdplanilla();
+        }
+
+        datosplanilla obj_datos = new datosplanilla();
+        obj_datos.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        planilacompleta obj_completa = new planilacompleta();
+        obj_completa.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public void limpiartabla() {
-        DefaultTableModel temp = (DefaultTableModel) tblplanilla.getModel();
-        int filas = tblplanilla.getRowCount();
+        DefaultTableModel temp = (DefaultTableModel) tbl_planilla.getModel();
+        int filas = tbl_planilla.getRowCount();
 
         for (int a = 0; filas > a; a++) {
             temp.removeRow(0);
@@ -1211,6 +1151,9 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbAnio;
     private javax.swing.JComboBox<String> cmbDia;
     private javax.swing.JComboBox<String> cmbMes;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1235,6 +1178,7 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1250,9 +1194,9 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanelCrearUsuario;
     private javax.swing.JPanel jPanelEmpleados;
-    private javax.swing.JPanel jPanelPlanilla;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -1262,20 +1206,14 @@ public class frmLobby extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JButton jbtadicionar;
-    private javax.swing.JButton jbteliminar;
-    private javax.swing.JButton jbtnactuali;
     private javax.swing.JMenu jmCrearPlanilla;
     private javax.swing.JMenu jmCrearUsuario;
     private javax.swing.JMenu jmSalir;
     private javax.swing.JMenu jmVerEmpleado;
-    private javax.swing.JLabel labelfondo;
-    private javax.swing.JLabel labelfondo1;
-    private javax.swing.JLabel labelfondo2;
-    private javax.swing.JLabel labelfondo3;
     private javax.swing.JLabel lblCedula;
     private javax.swing.JLabel lblcedula;
-    private javax.swing.JTable tblplanilla;
+    private javax.swing.JPanel planlillaprincipal;
+    private javax.swing.JTable tbl_planilla;
     private javax.swing.JTextField txtApellido1;
     private javax.swing.JTextField txtApellido2;
     private javax.swing.JTextField txtApellidoUsuario;

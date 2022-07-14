@@ -49,6 +49,7 @@ public class Planillaprincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         planlillaprincipal = new javax.swing.JPanel();
+        jpPlanilla = new javax.swing.JPanel();
 
         jLabel1.setText("jLabel1");
 
@@ -122,6 +123,19 @@ public class Planillaprincipal extends javax.swing.JFrame {
         );
 
         getContentPane().add(planlillaprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 370));
+
+        javax.swing.GroupLayout jpPlanillaLayout = new javax.swing.GroupLayout(jpPlanilla);
+        jpPlanilla.setLayout(jpPlanillaLayout);
+        jpPlanillaLayout.setHorizontalGroup(
+            jpPlanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jpPlanillaLayout.setVerticalGroup(
+            jpPlanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jpPlanilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -215,6 +229,7 @@ public class Planillaprincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jpPlanilla;
     private javax.swing.JPanel planlillaprincipal;
     private javax.swing.JTable tbl_planilla;
     // End of variables declaration//GEN-END:variables
