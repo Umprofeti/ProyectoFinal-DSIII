@@ -794,7 +794,7 @@ public class frmLobby extends javax.swing.JFrame {
 
         jPanel8.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        PanelPrincipal.add(jPanel8, "card4");
+        PanelPrincipal.add(jPanel8, "PanelPlanilla");
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setForeground(new java.awt.Color(102, 153, 255));
