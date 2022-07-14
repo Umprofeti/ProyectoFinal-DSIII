@@ -17,17 +17,11 @@ public class datosplanilla extends javax.swing.JFrame {
     /**
      * Creates new form datosplanilla
      */
-    private int numero =-1;
-    public datosplanilla(int numero) {
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.numero = numero;
-    }
-
     public datosplanilla() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,18 +112,16 @@ public class datosplanilla extends javax.swing.JFrame {
 
     private void jadicionempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadicionempleadoActionPerformed
         // TODO add your handling code here:
-        if(numero !=-1){
-        agregarempleado obj_agregar = new agregarempleado(numero);
+        agregarempleado obj_agregar = new agregarempleado();
         obj_agregar.setVisible(true);
         this.setVisible(false);
-        }else{
-            JOptionPane.showMessageDialog(null, "No fue seleccionado una planilla.");
-        }
     }//GEN-LAST:event_jadicionempleadoActionPerformed
 
     private void btnregresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresaActionPerformed
         // TODO add your handling code here:
         this.dispose();
+        Planillaprincipal vista = new Planillaprincipal();
+        vista.setVisible(true);
     }//GEN-LAST:event_btnregresaActionPerformed
 
     private void jdtAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jdtAncestorAdded
@@ -140,15 +132,19 @@ public class datosplanilla extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        if (jdt.getDate()!=null) {
+        if (jdt.getDate() != null) {
             String dia = String.valueOf(jdt.getCalendar().get(Calendar.DAY_OF_MONTH));
             String mes = String.valueOf(jdt.getCalendar().get(Calendar.MONTH) + 1);
             String year = String.valueOf(jdt.getCalendar().get(Calendar.YEAR));
             String fecha = (year + "-" + mes + "-" + dia);
             ControlDAO obj_control = new ControlDAO();
-            obj_control.insertarPlanilla(fecha);
-        }else{
-            JOptionPane.showMessageDialog(null, "No ingresaste una fecha");
+            String mensaje = obj_control.insertarPlanilla(fecha);
+            if (!mensaje.equals("error")) {
+                JOptionPane.showMessageDialog(null, "Se agrego la planilla número " + mensaje + " a la\nplanilla correctamente.");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "No ingresaste una fecha");
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

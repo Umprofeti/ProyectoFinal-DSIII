@@ -6,7 +6,6 @@ import java.sql.*;
 
 public class ControlDAO {
 
-
     public ArrayList<Usuario> seleccionarUsuarios() {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -75,6 +74,31 @@ public class ControlDAO {
         }
         return empleados;
     }
+
+    public int selectMaxPlanilla() {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int empleadosPlanilla = 0;
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_MAX_planilla");
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                empleadosPlanilla = rs.getInt("MAX(id_planilla)");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return empleadosPlanilla;
+    }
+
     public ArrayList<String> Planilla() {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -91,8 +115,46 @@ public class ControlDAO {
                 String idPlanilla = String.valueOf(rs.getString("id_planilla"));
                 String fecha = rs.getString("fecha");
 
-                
                 planilla.add(idPlanilla);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return planilla;
+    }
+
+    public ArrayList<Planilla> SelectCalculoPlanilla(int numero) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Planilla planillas = null;
+        ArrayList<Planilla> planilla = new ArrayList<>();
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_planilla_por_id(" + numero + ")");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int idPlanilla = rs.getInt("id_planilla");
+                String fecha = rs.getString("fecha");
+                String cedula = rs.getString("cedula");
+                String nombre1 = rs.getString("nombre1");
+                String nombre2 = rs.getString("nombre2");
+                String apellido1 = rs.getString("apellido1");
+                String apellido2 = rs.getString("apellido2");
+                int ht = rs.getInt("horas_trabajadas");
+                double sph = rs.getDouble("sph");
+                double sb = rs.getDouble("sb");
+                double ss = rs.getDouble("ss");
+                double se = rs.getDouble("se");
+                double sn = rs.getDouble("sn");
+                planillas = new Planilla(idPlanilla, fecha, cedula, nombre1, nombre2, apellido1, apellido2, ht, sph, sb, ss, se, sn);
+                planilla.add(planillas);
             }
         } catch (SQLException ex) {
             System.out.println("Error= " + ex.getMessage());
@@ -157,45 +219,57 @@ public class ControlDAO {
         }
     }
 
-    public void insertarPlanillaDetalle(Planilla planillaD) {
+    public String insertarPlanillaDetalle(Planilla planillaD) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs;
+        String mensaje = "";
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareCall("CALL sp_insert_detalle_planilla(?,?,?,?,?,?,?,?)");
-            ps.setString(1, String.valueOf(planillaD.getId_planilla()));
+            ps.setString(1, String.valueOf(planillaD.getIdplanilla()));
             ps.setString(2, planillaD.getCedula());
             ps.setString(3, String.valueOf(planillaD.getHoratrabjada()));
             ps.setString(4, String.valueOf(planillaD.getSphora()));
             ps.setString(5, String.valueOf(planillaD.getSbruto()));
-            ps.setString(6, String.valueOf(planillaD.getSegsocial()));
-            ps.setString(7, String.valueOf(planillaD.getSegeducativo()));
+            ps.setString(6, String.valueOf("9.75"));
+            ps.setString(7, String.valueOf("1.25"));
             ps.setString(8, String.valueOf(planillaD.getSNETO()));
             rs = ps.executeQuery();
+            if (rs.next()) {
+                mensaje = rs.getString("cedula_empleado");
+            }
         } catch (SQLException ex) {
             System.out.println("ex = " + ex);
+            mensaje = "error";
         } finally {
             Conexion.close(ps);
             Conexion.close(conn);
         }
+        return mensaje;
     }
 
-    public void insertarPlanilla(String planilla) {
+    public String insertarPlanilla(String planilla) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs;
+        String mensaje = "";
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareCall("CALL sp_insert_planilla(?)");
             ps.setString(1, planilla);
             rs = ps.executeQuery();
+            if (rs.next()) {
+                mensaje = String.valueOf(rs.getInt("ultimo_id"));
+            }
         } catch (SQLException ex) {
             System.out.println("ex = " + ex);
+            mensaje = "error";
         } finally {
             Conexion.close(ps);
             Conexion.close(conn);
         }
+        return mensaje;
     }
 
     public void actualizarEmpleado(Empleado empleado) {
@@ -221,7 +295,8 @@ public class ControlDAO {
             Conexion.close(conn);
         }
     }
-    public ArrayList  <Planilla> seleccionarPlanillaTotales() {
+
+    public ArrayList<Planilla> seleccionarPlanillaTotales() {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -240,7 +315,7 @@ public class ControlDAO {
                 double totalss = rs.getDouble("total_ss");
                 double totalse = rs.getDouble("total_se");
                 double totalsn = rs.getDouble("total_sn");
-                
+
                 planilla = new Planilla(idPlanilla, fecha, totalsb, totalss, totalse, totalsn);
                 planillaTotal.add(planilla);
             }
@@ -253,6 +328,5 @@ public class ControlDAO {
         }
         return planillaTotal;
     }
-    
+
 }
-        

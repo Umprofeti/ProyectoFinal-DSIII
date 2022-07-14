@@ -23,6 +23,23 @@ public class Planilla extends Empleado{
         this.segeducativo = segeducativo;
         this.SNETO = SNETO;
     }
+    
+    public Planilla(int idPlanilla, String fecha, String cedula, String nombre1, String nombre2, String apellido1,
+           String apellido2, int ht, double sph, double sb, double ss, double se, double sn) {
+        super(cedula, nombre1, nombre2, apellido1, apellido2);
+        this.idplanilla = idPlanilla;
+        this.fecha = fecha;
+        this.horatrabjada = ht;
+        this.Sphora = sph;
+        this.Sbruto = sb;
+        this.segsocial = ss;
+        this.segeducativo= se;
+        this.SNETO = sn;
+    }
+    
+    public Planilla(int idplanilla) {
+        this.idplanilla = idplanilla;
+    }
 
     public Planilla(int idPlanilla, String fecha, double Sphora, int horatrabjada, double Sbruto, double 
             segsocial, double segeducativo, double SNETO, String cedula, 
@@ -37,7 +54,6 @@ public class Planilla extends Empleado{
         this.segsocial = segsocial;
         this.segeducativo = segeducativo;
         this.SNETO = SNETO;
-        
     }
 
     public int getIdplanilla() {
@@ -106,25 +122,15 @@ public class Planilla extends Empleado{
     
     public void Salirobruto() {
 
-        Sbruto = this.horatrabjada * this.Sphora;
+        Sbruto = Math.round((this.horatrabjada * this.Sphora)*100)/100;
 
-        segsocial = this.Sbruto * SS;
+        segsocial = Math.round((this.Sbruto * SS)*100)/100;
 
-        segeducativo = this.Sbruto * SE;
+        segeducativo = Math.round((this.Sbruto * SE)*100)/100;
 
         SNETO = this.Sbruto - this.segsocial - this.segeducativo;
 
     }
-
-    public int getId_planilla() {
-        return idplanilla;
-    }
-
-    public void setId_planilla(int idplanilla) {
-        this.idplanilla = idplanilla;
-    }
-
-    
     
     public boolean validarhorastr() {
         if (this.horatrabjada >= 4 && this.horatrabjada <= 12) {

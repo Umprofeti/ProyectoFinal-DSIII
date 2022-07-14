@@ -126,7 +126,7 @@ public class Planillaprincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void actualizarTblPlanila() {
+    public void actualizarTblPlanila() {
         
         listaplanilla = control.seleccionarPlanillaTotales();
         DefaultTableModel model = (DefaultTableModel) tbl_planilla.getModel();
@@ -154,8 +154,9 @@ public class Planillaprincipal extends javax.swing.JFrame {
         planillaSeleccionada = listaplanilla.get(numero).getIdplanilla();
         }
         
-        datosplanilla obj_datos = new datosplanilla(planillaSeleccionada);
+        datosplanilla obj_datos = new datosplanilla();
         obj_datos.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

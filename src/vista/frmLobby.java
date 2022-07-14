@@ -896,39 +896,39 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void btnBuscarEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarEmpleadoMouseClicked
         // TODO add your handling code here:
-        controlador.Empleado empleado = new controlador.Empleado();
-        ArrayList<Empleado> lista = new ArrayList<>();
-        String cedulatxt = String.valueOf(txtCedula.getText());
-        if (!cedulatxt.equals("")) {
-            empleado.setCedula(String.valueOf(txtCedula.getText()));
-            if (empleado.BuscarEmpleado()) {
-                lista = empleado.MostrarTodo();
-                for (int i = 0; i < lista.size(); i++) {
-                    if (lista.get(i).getCedula().equals(cedulatxt)) {
-                        txtCedulaEmpleado.setEnabled(false);
-                        txtCedulaEmpleado.setText(cedulatxt);
-                        txtNombre1.setText(lista.get(i).getPrimerNombre());
-                        txtNombre2.setText(lista.get(i).getSegundoNombre());
-                        txtApellido1.setText(lista.get(i).getPrimerApellido());
-                        txtApellido2.setText(lista.get(i).getSegundoApellido());
-                        String anio, mes, dia;
-                        String fecha = lista.get(i).getFecha_nacimiento();
-                        anio = fecha.substring(0, 4);
-                        mes = fecha.substring(5, 7);
-                        dia = fecha.substring(8, 10);
-                        cmbAnio.setSelectedItem(anio);
-                        cmbMes.setSelectedItem(mes);
-                        cmbDia.setSelectedItem(dia);
-                        txtDireccion.setText(lista.get(i).getDireccion());
-                        txtTelefono.setText(lista.get(i).getTelefono());
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe empleado con esa cédula.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "El campo cédula del empleado a buscar está vacío");
-        }
+//        controlador.Empleado empleado = new controlador.Empleado();
+//        ArrayList<Empleado> lista = new ArrayList<>();
+//        String cedulatxt = String.valueOf(txtCedula.getText());
+//        if (!cedulatxt.equals("")) {
+//            empleado.setCedula(String.valueOf(txtCedula.getText()));
+//            if (empleado.BuscarEmpleado()) {
+//                lista = empleado.MostrarTodo();
+//                for (int i = 0; i < lista.size(); i++) {
+//                    if (lista.get(i).getCedula().equals(cedulatxt)) {
+//                        txtCedulaEmpleado.setEnabled(false);
+//                        txtCedulaEmpleado.setText(cedulatxt);
+//                        txtNombre1.setText(lista.get(i).getPrimerNombre());
+//                        txtNombre2.setText(lista.get(i).getSegundoNombre());
+//                        txtApellido1.setText(lista.get(i).getPrimerApellido());
+//                        txtApellido2.setText(lista.get(i).getSegundoApellido());
+//                        String anio, mes, dia;
+//                        String fecha = lista.get(i).getFecha_nacimiento();
+//                        anio = fecha.substring(0, 4);
+//                        mes = fecha.substring(5, 7);
+//                        dia = fecha.substring(8, 10);
+//                        cmbAnio.setSelectedItem(anio);
+//                        cmbMes.setSelectedItem(mes);
+//                        cmbDia.setSelectedItem(dia);
+//                        txtDireccion.setText(lista.get(i).getDireccion());
+//                        txtTelefono.setText(lista.get(i).getTelefono());
+//                    }
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No existe empleado con esa cédula.");
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "El campo cédula del empleado a buscar está vacío");
+//        }
     }//GEN-LAST:event_btnBuscarEmpleadoMouseClicked
 
     private void cmbAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAnioActionPerformed
@@ -937,87 +937,87 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void btnInsertarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertarMouseClicked
         // TODO add your handling code here:
-        controlador.Empleado obj_empleado = new controlador.Empleado();
-        if (!txtCedulaEmpleado.getText().isEmpty() && !txtNombre1.getText().isEmpty() && !txtNombre2.getText().isEmpty() && !txtApellido1.getText().isEmpty()
-                && !txtApellido2.getText().isEmpty() && !cmbDia.getSelectedItem().equals("") && !cmbMes.getSelectedItem().equals("")
-                && !cmbAnio.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()
-                && !cmbAnio.getSelectedItem().equals("Año") && !cmbMes.getSelectedItem().equals("Mes") && !cmbDia.getSelectedItem().equals("Día")) {
-
-            obj_empleado.setCedula(String.valueOf(txtCedulaEmpleado.getText()));
-            if (obj_empleado.BuscarEmpleado()) {
-                JOptionPane.showMessageDialog(null, "Este empleado ya existe");
-            } else {
-                obj_empleado.setPrimerNombre(String.valueOf(txtNombre1.getText()));
-                obj_empleado.setSegundoNombre(String.valueOf(txtNombre2.getText()));
-                obj_empleado.setPrimerApellido(String.valueOf(txtApellido1.getText()));
-                obj_empleado.setSegundoApellido(String.valueOf(txtApellido2.getText()));
-                String anio = String.valueOf(cmbAnio.getSelectedItem());
-                String mes = String.valueOf(cmbMes.getSelectedItem());
-                String dia = String.valueOf(cmbDia.getSelectedItem());
-                obj_empleado.setFecha_nacimiento(anio + "-" + mes + "-" + dia);
-                obj_empleado.setDireccion(String.valueOf(txtDireccion.getText()));
-                obj_empleado.setTelefono(String.valueOf(txtTelefono.getText()));
-                if (obj_empleado.Insertar()) {
-                    JOptionPane.showMessageDialog(null, "Se ha creado el empleado");
-                    txtCedula.setText("");
-                    txtCedulaEmpleado.setText("");
-                    txtCedulaEmpleado.setEnabled(true);
-                    txtNombre1.setText("");
-                    txtNombre2.setText("");
-                    txtApellido1.setText("");
-                    txtApellido2.setText("");
-                    txtDireccion.setText("");
-                    txtTelefono.setText("");
-                    cmbAnio.setSelectedIndex(0);
-                    cmbMes.setSelectedIndex(0);
-                    cmbDia.setSelectedIndex(0);
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se podido crear el empleado");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "¡Hay campos vacios!");
-        }
+//        controlador.Empleado obj_empleado = new controlador.Empleado();
+//        if (!txtCedulaEmpleado.getText().isEmpty() && !txtNombre1.getText().isEmpty() && !txtNombre2.getText().isEmpty() && !txtApellido1.getText().isEmpty()
+//                && !txtApellido2.getText().isEmpty() && !cmbDia.getSelectedItem().equals("") && !cmbMes.getSelectedItem().equals("")
+//                && !cmbAnio.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()
+//                && !cmbAnio.getSelectedItem().equals("Año") && !cmbMes.getSelectedItem().equals("Mes") && !cmbDia.getSelectedItem().equals("Día")) {
+//
+//            obj_empleado.setCedula(String.valueOf(txtCedulaEmpleado.getText()));
+//            if (obj_empleado.BuscarEmpleado()) {
+//                JOptionPane.showMessageDialog(null, "Este empleado ya existe");
+//            } else {
+//                obj_empleado.setPrimerNombre(String.valueOf(txtNombre1.getText()));
+//                obj_empleado.setSegundoNombre(String.valueOf(txtNombre2.getText()));
+//                obj_empleado.setPrimerApellido(String.valueOf(txtApellido1.getText()));
+//                obj_empleado.setSegundoApellido(String.valueOf(txtApellido2.getText()));
+//                String anio = String.valueOf(cmbAnio.getSelectedItem());
+//                String mes = String.valueOf(cmbMes.getSelectedItem());
+//                String dia = String.valueOf(cmbDia.getSelectedItem());
+//                obj_empleado.setFecha_nacimiento(anio + "-" + mes + "-" + dia);
+//                obj_empleado.setDireccion(String.valueOf(txtDireccion.getText()));
+//                obj_empleado.setTelefono(String.valueOf(txtTelefono.getText()));
+//                if (obj_empleado.Insertar()) {
+//                    JOptionPane.showMessageDialog(null, "Se ha creado el empleado");
+//                    txtCedula.setText("");
+//                    txtCedulaEmpleado.setText("");
+//                    txtCedulaEmpleado.setEnabled(true);
+//                    txtNombre1.setText("");
+//                    txtNombre2.setText("");
+//                    txtApellido1.setText("");
+//                    txtApellido2.setText("");
+//                    txtDireccion.setText("");
+//                    txtTelefono.setText("");
+//                    cmbAnio.setSelectedIndex(0);
+//                    cmbMes.setSelectedIndex(0);
+//                    cmbDia.setSelectedIndex(0);
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "No se podido crear el empleado");
+//                }
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "¡Hay campos vacios!");
+//        }
     }//GEN-LAST:event_btnInsertarMouseClicked
 
     private void btnGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseClicked
         // TODO add your handling code here:
-        controlador.Empleado empleado = new controlador.Empleado();
-        if (!txtCedulaEmpleado.getText().isEmpty() && !txtNombre1.getText().isEmpty() && !txtNombre2.getText().isEmpty() && !txtApellido1.getText().isEmpty()
-                && !txtApellido2.getText().isEmpty() && !cmbDia.getSelectedItem().equals("") && !cmbMes.getSelectedItem().equals("")
-                && !cmbAnio.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
-            empleado.setCedula(String.valueOf(txtCedulaEmpleado.getText()));
-            empleado.setPrimerNombre(String.valueOf(txtNombre1.getText()));
-            empleado.setSegundoNombre(String.valueOf(txtNombre2.getText()));
-            empleado.setPrimerApellido((String.valueOf(txtApellido1.getText())));
-            empleado.setSegundoApellido((String.valueOf(txtApellido2.getText())));
-            String anio = String.valueOf(cmbAnio.getSelectedItem());
-            String mes = String.valueOf(cmbMes.getSelectedItem());
-            String dia = String.valueOf(cmbDia.getSelectedItem());
-            empleado.setFecha_nacimiento(anio + "-" + mes + "-" + dia);
-            empleado.setDireccion(String.valueOf(txtDireccion.getText()));
-            empleado.setTelefono(String.valueOf(txtTelefono.getText()));
-
-            if (empleado.ModificarInfoEmpleado()) {
-                JOptionPane.showMessageDialog(null, "La información se ha modificado correctamente.");
-                txtCedula.setText("");
-                txtCedulaEmpleado.setText("");
-                txtCedulaEmpleado.setEnabled(true);
-                txtNombre1.setText("");
-                txtNombre2.setText("");
-                txtApellido1.setText("");
-                txtApellido2.setText("");
-                txtDireccion.setText("");
-                txtTelefono.setText("");
-                cmbAnio.setSelectedIndex(0);
-                cmbMes.setSelectedIndex(0);
-                cmbDia.setSelectedIndex(0);
-            } else {
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar la modificación");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Hay campos vacios");
-        }
+//        controlador.Empleado empleado = new controlador.Empleado();
+//        if (!txtCedulaEmpleado.getText().isEmpty() && !txtNombre1.getText().isEmpty() && !txtNombre2.getText().isEmpty() && !txtApellido1.getText().isEmpty()
+//                && !txtApellido2.getText().isEmpty() && !cmbDia.getSelectedItem().equals("") && !cmbMes.getSelectedItem().equals("")
+//                && !cmbAnio.getSelectedItem().equals("") && !txtDireccion.getText().isEmpty() && !txtTelefono.getText().isEmpty()) {
+//            empleado.setCedula(String.valueOf(txtCedulaEmpleado.getText()));
+//            empleado.setPrimerNombre(String.valueOf(txtNombre1.getText()));
+//            empleado.setSegundoNombre(String.valueOf(txtNombre2.getText()));
+//            empleado.setPrimerApellido((String.valueOf(txtApellido1.getText())));
+//            empleado.setSegundoApellido((String.valueOf(txtApellido2.getText())));
+//            String anio = String.valueOf(cmbAnio.getSelectedItem());
+//            String mes = String.valueOf(cmbMes.getSelectedItem());
+//            String dia = String.valueOf(cmbDia.getSelectedItem());
+//            empleado.setFecha_nacimiento(anio + "-" + mes + "-" + dia);
+//            empleado.setDireccion(String.valueOf(txtDireccion.getText()));
+//            empleado.setTelefono(String.valueOf(txtTelefono.getText()));
+//
+//            if (empleado.ModificarInfoEmpleado()) {
+//                JOptionPane.showMessageDialog(null, "La información se ha modificado correctamente.");
+//                txtCedula.setText("");
+//                txtCedulaEmpleado.setText("");
+//                txtCedulaEmpleado.setEnabled(true);
+//                txtNombre1.setText("");
+//                txtNombre2.setText("");
+//                txtApellido1.setText("");
+//                txtApellido2.setText("");
+//                txtDireccion.setText("");
+//                txtTelefono.setText("");
+//                cmbAnio.setSelectedIndex(0);
+//                cmbMes.setSelectedIndex(0);
+//                cmbDia.setSelectedIndex(0);
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Hubo un error al intentar la modificación");
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Hay campos vacios");
+//        }
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void jmVerEmpleadoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmVerEmpleadoMousePressed
@@ -1048,34 +1048,34 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void btnCrearUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCrearUsuarioMouseClicked
         // TODO add your handling code here:
-        controlador.Usuario obj_usuario = new controlador.Usuario();
-        if (!txtUsuario.getText().isEmpty() && !txtCedulaUsuario.getText().isEmpty() && txtPassword.getPassword().length != 0
-            && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() && !txtDireccion1.getText().isEmpty()) {
-            obj_usuario.setCedula(String.valueOf(txtCedulaUsuario.getText()));
-            if (obj_usuario.Buscar()) {
-                JOptionPane.showMessageDialog(null, "Este Usuario ya existe");
-            } else {
-
-                obj_usuario.setApellido(String.valueOf(txtApellidoUsuario.getText()));
-                obj_usuario.setNombre(String.valueOf(txtNombreUsuario.getText()));
-                obj_usuario.setDireccion(String.valueOf(txtDireccion1.getText()));
-                obj_usuario.setUsuario(String.valueOf(txtUsuario.getText()));
-                obj_usuario.setPassword(String.valueOf(txtPassword.getPassword()));
-                if (obj_usuario.Insertar()) {
-                    JOptionPane.showMessageDialog(null, "Se ha creado el usuario");
-                    txtUsuario.setText("");
-                    txtNombreUsuario.setText("");
-                    txtApellidoUsuario.setText("");
-                    txtCedulaUsuario.setText("");
-                    txtDireccion1.setText("");
-                    txtPassword.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se podido crear el usuario");
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Hay campos vacios!");
-        }
+//        controlador.Usuario obj_usuario = new controlador.Usuario();
+//        if (!txtUsuario.getText().isEmpty() && !txtCedulaUsuario.getText().isEmpty() && txtPassword.getPassword().length != 0
+//            && !txtNombreUsuario.getText().isEmpty() && !txtApellidoUsuario.getText().isEmpty() && !txtDireccion1.getText().isEmpty()) {
+//            obj_usuario.setCedula(String.valueOf(txtCedulaUsuario.getText()));
+//            if (obj_usuario.Buscar()) {
+//                JOptionPane.showMessageDialog(null, "Este Usuario ya existe");
+//            } else {
+//
+//                obj_usuario.setApellido(String.valueOf(txtApellidoUsuario.getText()));
+//                obj_usuario.setNombre(String.valueOf(txtNombreUsuario.getText()));
+//                obj_usuario.setDireccion(String.valueOf(txtDireccion1.getText()));
+//                obj_usuario.setUsuario(String.valueOf(txtUsuario.getText()));
+//                obj_usuario.setPassword(String.valueOf(txtPassword.getPassword()));
+//                if (obj_usuario.Insertar()) {
+//                    JOptionPane.showMessageDialog(null, "Se ha creado el usuario");
+//                    txtUsuario.setText("");
+//                    txtNombreUsuario.setText("");
+//                    txtApellidoUsuario.setText("");
+//                    txtCedulaUsuario.setText("");
+//                    txtDireccion1.setText("");
+//                    txtPassword.setText("");
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "No se podido crear el usuario");
+//                }
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Hay campos vacios!");
+//        }
     }//GEN-LAST:event_btnCrearUsuarioMouseClicked
 
     private void txtNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreUsuarioActionPerformed
@@ -1095,33 +1095,33 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void jbtnactualiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnactualiActionPerformed
         // TODO add your handling code here://
-        ArrayList<controlador.Planilla> planilla = new ArrayList<>();
-        this.limpiartabla();//Primero se limpia la planilla
-        controlador.Planilla obj_dato = new controlador.Planilla();
-
-        if (obj_dato.ExistePlanilla()) {//Se verifica que ya exista un fichero planilla.
-            planilla = obj_dato.MostrarTodo();
-            DefaultTableModel model = (DefaultTableModel) tblplanilla.getModel();
-
-            for (int i = 0; i < planilla.size(); i++) {//Se agrega todo al arrayList para mostrarlo en la tabla
-
-                String[] arreglo = {planilla.get(i).getCedula(),
-                    planilla.get(i).getPrimerNombre(),
-                    planilla.get(i).getSegundoNombre(),
-                    planilla.get(i).getPrimerApellido(),
-                    planilla.get(i).getSegundoApellido(),
-                    String.valueOf(planilla.get(i).getHoratrabjada()),
-                    String.valueOf(planilla.get(i).getSphora()),
-                    String.valueOf(planilla.get(i).getSbruto()),
-                    String.valueOf(planilla.get(i).getSegsocial()),
-                    String.valueOf(planilla.get(i).getSegeducativo()),
-                    String.valueOf(planilla.get(i).getSNETO())};
-
-                model.addRow(arreglo);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Aún no se agrego ningún empleado a la planilla.");
-        }
+//        ArrayList<controlador.Planilla> planilla = new ArrayList<>();
+//        this.limpiartabla();//Primero se limpia la planilla
+//        controlador.Planilla obj_dato = new controlador.Planilla();
+//
+//        if (obj_dato.ExistePlanilla()) {//Se verifica que ya exista un fichero planilla.
+//            planilla = obj_dato.MostrarTodo();
+//            DefaultTableModel model = (DefaultTableModel) tblplanilla.getModel();
+//
+//            for (int i = 0; i < planilla.size(); i++) {//Se agrega todo al arrayList para mostrarlo en la tabla
+//
+//                String[] arreglo = {planilla.get(i).getCedula(),
+//                    planilla.get(i).getPrimerNombre(),
+//                    planilla.get(i).getSegundoNombre(),
+//                    planilla.get(i).getPrimerApellido(),
+//                    planilla.get(i).getSegundoApellido(),
+//                    String.valueOf(planilla.get(i).getHoratrabjada()),
+//                    String.valueOf(planilla.get(i).getSphora()),
+//                    String.valueOf(planilla.get(i).getSbruto()),
+//                    String.valueOf(planilla.get(i).getSegsocial()),
+//                    String.valueOf(planilla.get(i).getSegeducativo()),
+//                    String.valueOf(planilla.get(i).getSNETO())};
+//
+//                model.addRow(arreglo);
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Aún no se agrego ningún empleado a la planilla.");
+//        }
     }//GEN-LAST:event_jbtnactualiActionPerformed
 
     private void jbtadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtadicionarActionPerformed
@@ -1132,19 +1132,19 @@ public class frmLobby extends javax.swing.JFrame {
 
     private void jbteliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbteliminarActionPerformed
         // TODO add your handling code here:
-        controlador.Planilla obj = new controlador.Planilla();
-        int[] borrar = (tblplanilla.getSelectedRows());//Buscamos las filas que fueron seleccionados
-        if (borrar.length != 0) {//Verificamos que se haya seleccionado 1 por lo menos
-            int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas borrar " + borrar.length + " empleado?");
-            if (resp == 0) {
-                for (int i = 0; i < borrar.length; i++) {//Se repite el metodo borrar para borrar a los empleado de la planilla.
-                    String cedulaBorrar = String.valueOf(tblplanilla.getValueAt(borrar[i], 0));
-                    obj.eliminar(cedulaBorrar);//HAY QUE PONER SI DESEA ELIMINAR EL EMPLEADO SI O NO
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No seleccionaste al empleado que deseas eliminar de la planilla");
-        }
+//        controlador.Planilla obj = new controlador.Planilla();
+//        int[] borrar = (tblplanilla.getSelectedRows());//Buscamos las filas que fueron seleccionados
+//        if (borrar.length != 0) {//Verificamos que se haya seleccionado 1 por lo menos
+//            int resp = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas borrar " + borrar.length + " empleado?");
+//            if (resp == 0) {
+//                for (int i = 0; i < borrar.length; i++) {//Se repite el metodo borrar para borrar a los empleado de la planilla.
+//                    String cedulaBorrar = String.valueOf(tblplanilla.getValueAt(borrar[i], 0));
+//                    obj.eliminar(cedulaBorrar);//HAY QUE PONER SI DESEA ELIMINAR EL EMPLEADO SI O NO
+//                }
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "No seleccionaste al empleado que deseas eliminar de la planilla");
+//        }
     }//GEN-LAST:event_jbteliminarActionPerformed
 
     private void jmCrearPlanillaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmCrearPlanillaMousePressed

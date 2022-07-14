@@ -4,7 +4,7 @@
  */
 package vista;
 
-import controlador.Empleado;
+import controlador.*;
 import datos.ControlDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -18,16 +18,14 @@ public class agregarempleado extends javax.swing.JFrame {
     /**
      * Creates new form agregarempleado
      */
-    public agregarempleado(int numero) {
-        initComponents();
-          this.setLocationRelativeTo(null);
-          labelNumPlanilla.setText(String.valueOf(numero));
-    }
+    ControlDAO control;
 
     public agregarempleado() {
         initComponents();
-          this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        this.MaxPlanilla();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -174,6 +172,7 @@ public class agregarempleado extends javax.swing.JFrame {
         getContentPane().add(btnagrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 80, 30));
 
         labelNumPlanilla.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        labelNumPlanilla.setText("XXX");
         getContentPane().add(labelNumPlanilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 70, 40));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 26)); // NOI18N
@@ -189,17 +188,55 @@ public class agregarempleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnagregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregaActionPerformed
         // TODO add your handling code here:
-      if(!cedulaPlanilla.getText().isEmpty() && !horaTrabajadas.getText().isEmpty() && !horasalario.getText().isEmpty()){
-          //Aquí va el código que almacenará la información
-          
-          
-          
-          
-      }else{
-           JOptionPane.showMessageDialog(null, "Hay campos vacíos.");
-      }
+        boolean guardar = true;
+        ArrayList<Planilla> verificarP = new ArrayList<>();
+        verificarP = control.SelectCalculoPlanilla(Integer.parseInt(labelNumPlanilla.getText()));
+        for (int i = 0; i < verificarP.size(); i++) {
+            if(verificarP.get(i).getCedula().equals(cedulaPlanilla.getText())){
+            guardar = false;
+        }
+        }
+        if(guardar){
+        if (!labelNumPlanilla.equals("0")) {
+            if (!cedulaPlanilla.getText().isEmpty() && !horaTrabajadas.getText().isEmpty() && !horasalario.getText().isEmpty()) {
+                //Aquí va el código que almacenará la información
+
+                Planilla planilla = new Planilla();
+                planilla.setHoratrabjada(Integer.parseInt(horaTrabajadas.getText()));
+                planilla.setSphora(Double.parseDouble(horasalario.getText()));
+                if (planilla.validarhorastr() && planilla.validarsalario()) {
+
+                    planilla.setIdplanilla(Integer.parseInt(labelNumPlanilla.getText()));
+                    planilla.setCedula(String.valueOf(cedulaPlanilla.getText()));
+                    planilla.Salirobruto();
+
+                    String mensaje = control.insertarPlanillaDetalle(planilla);
+                    if (!mensaje.equals("")) {
+                        JOptionPane.showMessageDialog(null, "Se agrego el empleado de la cedula " + mensaje + " a la planilla\ncorrectamente");
+                        cedulaPlanilla.setText("");
+                        nombre1.setText("");
+                        nombre2.setText("");
+                        apellido1.setText("");
+                        apellido2.setText("");
+                        horaTrabajadas.setText("");
+                        horasalario.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error, verifique los datos introducidos.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "El empleado no cumple con los requisitos.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Hay campos vacíos.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha podido ingresar el empleado debido a que no se ha creado una\nplanilla");
+        }
+        }else{
+        JOptionPane.showMessageDialog(null, "Este empleado ya fue agregado a esta planilla.");}
     }//GEN-LAST:event_btnagregaActionPerformed
 
     private void btnregresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresaActionPerformed
@@ -219,15 +256,15 @@ public class agregarempleado extends javax.swing.JFrame {
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
-        ControlDAO obj_control=new ControlDAO();
-        ArrayList<Empleado>empleado=new ArrayList<>();
-        empleado=obj_control.seleccionarEmpleados();
-        Empleado obj_empleado=new Empleado();
-        
-         if (!cedulaPlanilla.getText().equals("")){
-             if(obj_empleado.buscarempleado(cedulaPlanilla.getText())){
-         for (int i = 0; i < empleado.size(); i++) {
-                    if (empleado.get(i).getCedula().equals(cedulaPlanilla.getText())) { 
+        ControlDAO obj_control = new ControlDAO();
+        ArrayList<Empleado> empleado = new ArrayList<>();
+        empleado = obj_control.seleccionarEmpleados();
+        Empleado obj_empleado = new Empleado();
+
+        if (!cedulaPlanilla.getText().equals("")) {
+            if (obj_empleado.buscarempleado(cedulaPlanilla.getText())) {
+                for (int i = 0; i < empleado.size(); i++) {
+                    if (empleado.get(i).getCedula().equals(cedulaPlanilla.getText())) {
                         nombre1.setText(empleado.get(i).getPrimerNombre());
                         nombre2.setText(empleado.get(i).getSegundoNombre());
                         apellido1.setText(empleado.get(i).getPrimerApellido());
@@ -241,6 +278,12 @@ public class agregarempleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El campo cédula esta vacío.");
         }
     }//GEN-LAST:event_btnbuscarActionPerformed
+
+    private void MaxPlanilla() {
+        control = new ControlDAO();
+        int planillaE = control.selectMaxPlanilla();
+        labelNumPlanilla.setText(String.valueOf(planillaE));
+    }
 
     /**
      * @param args the command line arguments

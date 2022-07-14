@@ -25,6 +25,15 @@ public class Empleado {
         this.telefono = telefono;
     }
 
+    public Empleado(String cedula, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido) {
+        this.cedula = cedula;
+        this.primerNombre = primerNombre;
+        this.segundoNombre = segundoNombre;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+    }
+    
+
     public String getCedula() {
         return cedula;
     }

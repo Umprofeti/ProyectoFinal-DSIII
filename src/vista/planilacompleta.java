@@ -4,6 +4,12 @@
  */
 package vista;
 
+import controlador.*;
+import datos.ControlDAO;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Yonathan
@@ -15,7 +21,8 @@ public class planilacompleta extends javax.swing.JFrame {
      */
     public planilacompleta() {
         initComponents();
-         this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
+        this.agregarTablas();
     }
 
     /**
@@ -69,11 +76,15 @@ public class planilacompleta extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 910, 277));
 
-        labelTotalSBruto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTotalSBruto.setBackground(new java.awt.Color(153, 153, 153));
+        labelTotalSBruto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelTotalSBruto.setForeground(new java.awt.Color(255, 255, 255));
         labelTotalSBruto.setText("XXXXXXX");
-        getContentPane().add(labelTotalSBruto, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, 60, 20));
+        getContentPane().add(labelTotalSBruto, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, 80, 20));
 
-        labelTotaSNeto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTotaSNeto.setBackground(new java.awt.Color(153, 153, 153));
+        labelTotaSNeto.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelTotaSNeto.setForeground(new java.awt.Color(255, 255, 255));
         labelTotaSNeto.setText("XXXXXX");
         getContentPane().add(labelTotaSNeto, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 390, 80, 20));
 
@@ -94,6 +105,40 @@ public class planilacompleta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void agregarTablas() {
+        ControlDAO control = new ControlDAO();
+        ArrayList<Planilla> listaplanilla = new ArrayList<>();
+        ArrayList<Planilla> cant = new ArrayList<>();
+        cant = control.seleccionarPlanillaTotales();
+        DefaultTableModel model = (DefaultTableModel) tblplanilla.getModel();
+        double salarioB=0, salarioN=0;
+        int numero = 0;
+        for (int e = 0; e < cant.size(); e++) {
+
+            listaplanilla = control.SelectCalculoPlanilla(cant.get(e).getIdplanilla());
+
+            if (!listaplanilla.isEmpty()) {
+
+                for (int i = 0; i < listaplanilla.size(); i++) {
+                    String[] arreglo = {String.valueOf(listaplanilla.get(i).getIdplanilla()), String.valueOf(listaplanilla.get(i).getFecha()),
+                        String.valueOf(listaplanilla.get(i).getCedula()), String.valueOf(listaplanilla.get(i).getPrimerNombre()),
+                        String.valueOf(listaplanilla.get(i).getSegundoNombre()), String.valueOf(listaplanilla.get(i).getPrimerApellido()),
+                        String.valueOf(listaplanilla.get(i).getSegundoApellido()), String.valueOf(listaplanilla.get(i).getHoratrabjada()),
+                        String.valueOf(listaplanilla.get(i).getSphora()), String.valueOf(listaplanilla.get(i).getSbruto()),
+                        String.valueOf("9.75%"), String.valueOf("1.25%"), String.valueOf(listaplanilla.get(i).getSNETO())};
+                        salarioB= salarioB +listaplanilla.get(i).getSbruto();
+                        salarioN= salarioN +listaplanilla.get(i).getSNETO();
+                    model.addRow(arreglo);
+                }
+            
+        }else {
+            JOptionPane.showMessageDialog(null, "No se ha almacenado alguna planilla.");
+        }
+        }
+        labelTotalSBruto.setText(String.valueOf(salarioB));
+        labelTotaSNeto.setText(String.valueOf(salarioN));
+    }
 
     /**
      * @param args the command line arguments

@@ -10,8 +10,8 @@ public class Prueba {
 
         vista.Planillaprincipal obj_p=new vista.Planillaprincipal();
         obj_p.setVisible(true);
-           
-            
+//           
+//            control.SelectCalculoPlanilla();
             
             
     }
