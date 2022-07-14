@@ -175,7 +175,7 @@ public class ControlDAO {
             ps = conn.prepareCall("CALL sp_insert_usuarios(?, ?,?, ?, ?,?,?)");
             ps.setString(1, usuario.getCedula());
             ps.setString(2, usuario.getUsuario());
-            ps.setString(3, usuario.getPassword());
+            ps.setString(3, usuario.getEncodedPassword(usuario.getPassword()));
             ps.setString(4, usuario.getNombre());
             ps.setString(5, usuario.getApellido());
             ps.setString(6, usuario.getDireccion());

@@ -7,7 +7,14 @@ public class Prueba {
 
     public static void main(String[] args) {
         ControlDAO control = new ControlDAO();
-
+        controlador.Usuario usr = new controlador.Usuario();
+        
+        try{
+            usr.createUserAdmin();
+        }catch(Exception e){
+            
+        }
+        
         vista.frmLoggin obj_p=new vista.frmLoggin();
         obj_p.setVisible(true);
 //           
