@@ -75,6 +75,34 @@ public class ControlDAO {
         }
         return empleados;
     }
+    public ArrayList<String> Planilla() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Empleado empleado = null;
+        ArrayList<String> planilla = new ArrayList<>();
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_planilla");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                String idPlanilla = String.valueOf(rs.getString("id_planilla"));
+                String fecha = rs.getString("fecha");
+
+                
+                planilla.add(idPlanilla);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return planilla;
+    }
 
     public void insertarUsuario(Usuario usuario) {
         Connection conn = null;

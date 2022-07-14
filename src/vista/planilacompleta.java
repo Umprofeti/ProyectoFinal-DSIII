@@ -30,8 +30,8 @@ public class planilacompleta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblplanilla = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        labelTotalSBruto = new javax.swing.JLabel();
+        labelTotaSNeto = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -69,25 +69,19 @@ public class planilacompleta extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 910, 277));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jTextField2.setText("                    ");
-        jTextField2.setBorder(null);
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 390, 70, 20));
+        labelTotalSBruto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTotalSBruto.setText("XXXXXXX");
+        getContentPane().add(labelTotalSBruto, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, 60, 20));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jTextField1.setText("                 ");
-        jTextField1.setBorder(null);
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 390, 60, 20));
+        labelTotaSNeto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        labelTotaSNeto.setText("XXXXXX");
+        getContentPane().add(labelTotaSNeto, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 390, 80, 20));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Total Salario Neto");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 390, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Total Salario Bruto");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 390, 130, 20));
 
@@ -143,8 +137,8 @@ public class planilacompleta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel labelTotaSNeto;
+    private javax.swing.JLabel labelTotalSBruto;
     private javax.swing.JTable tblplanilla;
     // End of variables declaration//GEN-END:variables
 }

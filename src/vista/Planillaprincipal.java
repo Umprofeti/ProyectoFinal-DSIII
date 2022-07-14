@@ -19,12 +19,15 @@ public class Planillaprincipal extends javax.swing.JFrame {
     /**
      * Creates new form Planillacompleta
      */
+    
+    ControlDAO control = new ControlDAO();
+    ArrayList<Planilla> listaplanilla = new ArrayList<>();
+    
     public Planillaprincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
         this.actualizarTblPlanila();
-        
+
     }
 
     /**
@@ -55,7 +58,6 @@ public class Planillaprincipal extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(102, 255, 255));
         jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setText("CREAR");
         jButton1.setBorder(new javax.swing.border.MatteBorder(null));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +69,6 @@ public class Planillaprincipal extends javax.swing.JFrame {
 
         jButton3.setBackground(new java.awt.Color(51, 255, 255));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
         jButton3.setText("CERRAR");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +79,6 @@ public class Planillaprincipal extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(51, 255, 255));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("VER");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,13 +88,10 @@ public class Planillaprincipal extends javax.swing.JFrame {
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 80, 30));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("PLANILLA");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 190, -1));
 
-        tbl_planilla.setBackground(new java.awt.Color(255, 255, 255));
         tbl_planilla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        tbl_planilla.setForeground(new java.awt.Color(0, 0, 0));
         tbl_planilla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -129,33 +126,35 @@ public class Planillaprincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void actualizarTblPlanila(){
-        ControlDAO obj_actualizarPlanilla= new    ControlDAO();
-        ArrayList <Planilla> listaplanilla= new ArrayList<>();
-        listaplanilla=obj_actualizarPlanilla.seleccionarPlanillaTotales();
-        DefaultTableModel model=( DefaultTableModel) tbl_planilla.getModel();
+    private void actualizarTblPlanila() {
         
-        if(!listaplanilla.isEmpty()){
-          
+        listaplanilla = control.seleccionarPlanillaTotales();
+        DefaultTableModel model = (DefaultTableModel) tbl_planilla.getModel();
+
+        if (!listaplanilla.isEmpty()) {
+
             for (int i = 0; i < listaplanilla.size(); i++) {
-                String [] arreglo= { String.valueOf(listaplanilla.get(i).getIdplanilla()),listaplanilla.get(i).getFecha(),String.valueOf(listaplanilla.get(i).getSbruto()),
-                  String.valueOf(  listaplanilla.get(i).getSegsocial()),String.valueOf(listaplanilla.get(i).getSegeducativo()),String.valueOf(listaplanilla.get(i).getSNETO())
-                        
-                          };
+                String[] arreglo = {String.valueOf(listaplanilla.get(i).getIdplanilla()), listaplanilla.get(i).getFecha(), String.valueOf(listaplanilla.get(i).getSbruto()),
+                    String.valueOf(listaplanilla.get(i).getSegsocial()), String.valueOf(listaplanilla.get(i).getSegeducativo()), String.valueOf(listaplanilla.get(i).getSNETO())};
                 model.addRow(arreglo);
-                
             }
-            
-        }else{
-             JOptionPane.showMessageDialog(null, "No hay ninguna planilla");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ha almacenado alguna planilla.");
         }
-        
+
     }
-    
-    
+
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        datosplanilla obj_datos = new datosplanilla();
+        int numero = tbl_planilla.getSelectedRow();
+        int planillaSeleccionada = -1;
+        
+        if(numero != -1){
+        planillaSeleccionada = listaplanilla.get(numero).getIdplanilla();
+        }
+        
+        datosplanilla obj_datos = new datosplanilla(planillaSeleccionada);
         obj_datos.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 

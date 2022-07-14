@@ -18,11 +18,16 @@ public class agregarempleado extends javax.swing.JFrame {
     /**
      * Creates new form agregarempleado
      */
+    public agregarempleado(int numero) {
+        initComponents();
+          this.setLocationRelativeTo(null);
+          labelNumPlanilla.setText(String.valueOf(numero));
+    }
+
     public agregarempleado() {
         initComponents();
           this.setLocationRelativeTo(null);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,7 +39,7 @@ public class agregarempleado extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        cedula = new javax.swing.JTextField();
+        cedulaPlanilla = new javax.swing.JTextField();
         btnbuscar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -48,29 +53,27 @@ public class agregarempleado extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        horaword = new javax.swing.JTextField();
+        horaTrabajadas = new javax.swing.JTextField();
         horasalario = new javax.swing.JTextField();
         btnregresa = new javax.swing.JButton();
         btnagrega = new javax.swing.JButton();
-        numplanilla = new javax.swing.JTextField();
+        labelNumPlanilla = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(102, 204, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Búsqueda", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(0, 0, 0))); // NOI18N
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
         jPanel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Cédula");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 33, -1, -1));
-        jPanel1.add(cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 31, 170, -1));
+        jPanel1.add(cedulaPlanilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 31, 170, -1));
 
         btnbuscar.setBackground(java.awt.SystemColor.textHighlight);
         btnbuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -86,27 +89,23 @@ public class agregarempleado extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 301, 70));
 
         jPanel3.setBackground(new java.awt.Color(102, 204, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Empleado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Empleado"));
         jPanel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Primer Nombre");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 31, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Segundo Nombre");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 62, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Primer Apellido");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 93, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Segundo Apellido");
         jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 118, -1, -1));
 
@@ -132,26 +131,23 @@ public class agregarempleado extends javax.swing.JFrame {
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 300, 150));
 
         jPanel4.setBackground(new java.awt.Color(102, 204, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Salario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
-        jPanel4.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Salario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Horas Trabajadas");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 30, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Salario por Hora");
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 61, -1, -1));
 
-        horaword.addActionListener(new java.awt.event.ActionListener() {
+        horaTrabajadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                horawordActionPerformed(evt);
+                horaTrabajadasActionPerformed(evt);
             }
         });
-        jPanel4.add(horaword, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 28, 154, -1));
+        jPanel4.add(horaTrabajadas, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 28, 154, -1));
         jPanel4.add(horasalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 59, 154, -1));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 300, 90));
@@ -168,7 +164,6 @@ public class agregarempleado extends javax.swing.JFrame {
 
         btnagrega.setBackground(java.awt.Color.green);
         btnagrega.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnagrega.setForeground(new java.awt.Color(0, 0, 0));
         btnagrega.setText(" + Agregar");
         btnagrega.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnagrega.addActionListener(new java.awt.event.ActionListener() {
@@ -178,12 +173,10 @@ public class agregarempleado extends javax.swing.JFrame {
         });
         getContentPane().add(btnagrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 80, 30));
 
-        numplanilla.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        numplanilla.setOpaque(false);
-        getContentPane().add(numplanilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 9, 30, 30));
+        labelNumPlanilla.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        getContentPane().add(labelNumPlanilla, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 70, 40));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 26)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("PLANILLA NÚMERO:");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
@@ -198,19 +191,27 @@ public class agregarempleado extends javax.swing.JFrame {
 
     private void btnagregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregaActionPerformed
         // TODO add your handling code here:
-      
+      if(!cedulaPlanilla.getText().isEmpty() && !horaTrabajadas.getText().isEmpty() && !horasalario.getText().isEmpty()){
+          //Aquí va el código que almacenará la información
+          
+          
+          
+          
+      }else{
+           JOptionPane.showMessageDialog(null, "Hay campos vacíos.");
+      }
     }//GEN-LAST:event_btnagregaActionPerformed
 
     private void btnregresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresaActionPerformed
         // TODO add your handling code here:
-        datosplanilla obj_datos = new datosplanilla();
-        obj_datos.setVisible(true);
-        dispose();
+        vista.datosplanilla jrm = new vista.datosplanilla();
+        jrm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnregresaActionPerformed
 
-    private void horawordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horawordActionPerformed
+    private void horaTrabajadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaTrabajadasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_horawordActionPerformed
+    }//GEN-LAST:event_horaTrabajadasActionPerformed
 
     private void apellido2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellido2ActionPerformed
         // TODO add your handling code here:
@@ -223,28 +224,22 @@ public class agregarempleado extends javax.swing.JFrame {
         empleado=obj_control.seleccionarEmpleados();
         Empleado obj_empleado=new Empleado();
         
-         if (!cedula.getText().equals("")){
-        
-             if(obj_empleado.buscarempleado(cedula.getText())){
-             
+         if (!cedulaPlanilla.getText().equals("")){
+             if(obj_empleado.buscarempleado(cedulaPlanilla.getText())){
          for (int i = 0; i < empleado.size(); i++) {
-                    if (empleado.get(i).getCedula().equals(cedula.getText())) {
-                        
+                    if (empleado.get(i).getCedula().equals(cedulaPlanilla.getText())) { 
                         nombre1.setText(empleado.get(i).getPrimerNombre());
                         nombre2.setText(empleado.get(i).getSegundoNombre());
                         apellido1.setText(empleado.get(i).getPrimerApellido());
                         apellido2.setText(empleado.get(i).getSegundoApellido());
                     }
-
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No existe el empleado");
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "El campo cédula esta vacío.");
         }
-
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     /**
@@ -288,9 +283,9 @@ public class agregarempleado extends javax.swing.JFrame {
     private javax.swing.JButton btnagrega;
     private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btnregresa;
-    private javax.swing.JTextField cedula;
+    private javax.swing.JTextField cedulaPlanilla;
+    private javax.swing.JTextField horaTrabajadas;
     private javax.swing.JTextField horasalario;
-    private javax.swing.JTextField horaword;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -304,8 +299,8 @@ public class agregarempleado extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel labelNumPlanilla;
     private javax.swing.JTextField nombre1;
     private javax.swing.JTextField nombre2;
-    private javax.swing.JTextField numplanilla;
     // End of variables declaration//GEN-END:variables
 }
