@@ -5,7 +5,7 @@
 package vista;
 
 import controlador.*;
-import datos.ControlDAO;
+import datos.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +25,9 @@ public class planilacompleta extends javax.swing.JFrame {
         this.agregarTablas();
     }
 
+    private void llamada(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

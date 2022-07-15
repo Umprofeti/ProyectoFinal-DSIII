@@ -35,15 +35,15 @@ public class datosplanilla extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jadicionempleado = new javax.swing.JButton();
-        jdt = new org.netbeans.modules.form.InvalidComponent();
         btnregresa = new javax.swing.JButton();
+        jdt = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos de la Planilla", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la Planilla", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -75,8 +75,6 @@ public class datosplanilla extends javax.swing.JFrame {
         });
         jPanel1.add(jadicionempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 150, 50));
 
-        jPanel1.add(jdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 180, 40));
-
         btnregresa.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnregresa.setText("Regresar >>");
         btnregresa.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -86,6 +84,7 @@ public class datosplanilla extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnregresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, -1, 30));
+        jPanel1.add(jdt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 170, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 20, 410, 290));
 
@@ -108,8 +107,7 @@ public class datosplanilla extends javax.swing.JFrame {
     private void btnregresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregresaActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        Planillaprincipal vista = new Planillaprincipal();
-        vista.setVisible(true);
+        
     }//GEN-LAST:event_btnregresaActionPerformed
 
     private void jdtAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jdtAncestorAdded
@@ -175,6 +173,6 @@ public class datosplanilla extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jadicionempleado;
-    private org.netbeans.modules.form.InvalidComponent jdt;
+    private com.toedter.calendar.JDateChooser jdt;
     // End of variables declaration//GEN-END:variables
 }

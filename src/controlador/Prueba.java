@@ -17,8 +17,7 @@ public class Prueba {
         
         vista.frmLoggin obj_p=new vista.frmLoggin();
         obj_p.setVisible(true);
-//           
-//            control.SelectCalculoPlanilla();
+
             
             
     }
