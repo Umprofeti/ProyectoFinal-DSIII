@@ -401,4 +401,27 @@ public class ControlDAO {
         }
         return false;
     }
+     
+     public boolean verificarAdmin(){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs;
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_admin_account('0-000-0000')");
+            rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString("numero").equals("1")){
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("ex = " + ex);
+        } finally {
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return false;
+    }
+     
 }
