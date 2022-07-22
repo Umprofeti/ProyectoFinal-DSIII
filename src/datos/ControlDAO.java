@@ -6,7 +6,6 @@ import java.sql.*;
 
 public class ControlDAO {
 
-
     public ArrayList<Usuario> seleccionarUsuarios() {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -75,37 +74,166 @@ public class ControlDAO {
         }
         return empleados;
     }
-
-    public void insertarUsuario(Usuario usuario) {
+    public Empleado seleccionarEmpleadoID(String cedulaP) {// permite extraer la información de todos lo usuarios de la base de datos en un array list
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
+        Empleado empleado = null;
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_empleado_por_id(\'"+cedulaP+"\')");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String cedula = rs.getString("cedula");
+                String primerNombre = rs.getString("nombre1");
+                String segundoNombre = rs.getString("nombre2");
+                String primerApellido = rs.getString("apellido1");
+                String segundoApellido = rs.getString("apellido2");
+                String fechaNacimiento = rs.getString("fechanacimiento");
+                String direccion = rs.getString("direccion");
+                String telefono = rs.getString("telefono");
+
+                empleado = new Empleado(cedula, primerNombre, segundoNombre, primerApellido,
+                        segundoApellido, fechaNacimiento, direccion, telefono);
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return empleado;
+    }
+
+    public int selectMaxPlanilla() {
+
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        int empleadosPlanilla = 0;
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_MAX_planilla");
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                empleadosPlanilla = rs.getInt("MAX(id_planilla)");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return empleadosPlanilla;
+    }
+
+    public ArrayList<String> Planilla() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Empleado empleado = null;
+        ArrayList<String> planilla = new ArrayList<>();
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_planilla");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                String idPlanilla = String.valueOf(rs.getString("id_planilla"));
+                String fecha = rs.getString("fecha");
+
+                planilla.add(idPlanilla);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return planilla;
+    }
+
+    public ArrayList<Planilla> SelectCalculoPlanilla(int numero) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Planilla planillas = null;
+        ArrayList<Planilla> planilla = new ArrayList<>();
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_planilla_por_id(" + numero + ")");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int idPlanilla = rs.getInt("id_planilla");
+                String fecha = rs.getString("fecha");
+                String cedula = rs.getString("cedula");
+                String nombre1 = rs.getString("nombre1");
+                String nombre2 = rs.getString("nombre2");
+                String apellido1 = rs.getString("apellido1");
+                String apellido2 = rs.getString("apellido2");
+                int ht = rs.getInt("horas_trabajadas");
+                double sph = rs.getDouble("sph");
+                double sb = rs.getDouble("sb");
+                double ss = rs.getDouble("ss");
+                double se = rs.getDouble("se");
+                double sn = rs.getDouble("sn");
+                planillas = new Planilla(idPlanilla, fecha, cedula, nombre1, nombre2, apellido1, apellido2, ht, sph, sb, ss, se, sn);
+                planilla.add(planillas);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return planilla;
+    }
+
+    public String insertarUsuario(Usuario usuario) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String mensaje="";
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareCall("CALL sp_insert_usuarios(?, ?,?, ?, ?,?,?)");
             ps.setString(1, usuario.getCedula());
             ps.setString(2, usuario.getUsuario());
-            ps.setString(3, usuario.getPassword());
+            ps.setString(3, usuario.getEncodedPassword(usuario.getPassword()));
             ps.setString(4, usuario.getNombre());
             ps.setString(5, usuario.getApellido());
             ps.setString(6, usuario.getDireccion());
             ps.setString(7, usuario.getFechaIngreso());
             rs = ps.executeQuery();
             if (rs.next()) {
-                System.out.println("El id de usuario nuevo es " + rs.getString("cedula"));
+                mensaje = rs.getString("cedula");
             }
         } catch (SQLException ex) {
             System.out.println("ex = " + ex);
+            mensaje = "error";
         } finally {
             Conexion.close(ps);
             Conexion.close(conn);
         }
+        return mensaje;
     }
 
-    public void insertarEmpleado(Empleado empleado) {
+    public String insertarEmpleado(Empleado empleado) {//Permite insertar un empleado usuario dentro de la base de datos, para esto se debe 
+                                                  //ingresar como parametro del tipo de objeto que estas usando
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
+        String mensaje = "";
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareCall("CALL sp_insert_empleado(?,?,?,?,?,?,?,?)");
@@ -119,61 +247,77 @@ public class ControlDAO {
             ps.setString(8, empleado.getTelefono());
             rs = ps.executeQuery();
             if (rs.next()) {
-                System.out.println("El id de usuario nuevo es " + rs.getString("cedula"));
+                mensaje = rs.getString("cedula");
             }
         } catch (SQLException ex) {
             System.out.println("ex = " + ex);
+            mensaje = "error";
         } finally {
             Conexion.close(ps);
             Conexion.close(conn);
         }
+        return mensaje;
     }
 
-    public void insertarPlanillaDetalle(Planilla planillaD) {
+    public String insertarPlanillaDetalle(Planilla planillaD) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs;
+        String mensaje = "";
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareCall("CALL sp_insert_detalle_planilla(?,?,?,?,?,?,?,?)");
-            ps.setString(1, String.valueOf(planillaD.getId_planilla()));
+            ps.setString(1, String.valueOf(planillaD.getIdplanilla()));
             ps.setString(2, planillaD.getCedula());
             ps.setString(3, String.valueOf(planillaD.getHoratrabjada()));
             ps.setString(4, String.valueOf(planillaD.getSphora()));
             ps.setString(5, String.valueOf(planillaD.getSbruto()));
-            ps.setString(6, String.valueOf(planillaD.getSegsocial()));
-            ps.setString(7, String.valueOf(planillaD.getSegeducativo()));
+            ps.setString(6, String.valueOf("9.75"));
+            ps.setString(7, String.valueOf("1.25"));
             ps.setString(8, String.valueOf(planillaD.getSNETO()));
             rs = ps.executeQuery();
+            if (rs.next()) {
+                mensaje = rs.getString("cedula_empleado");
+            }
         } catch (SQLException ex) {
             System.out.println("ex = " + ex);
+            mensaje = "error";
         } finally {
             Conexion.close(ps);
             Conexion.close(conn);
         }
+        return mensaje;
     }
 
-    public void insertarPlanilla(String planilla) {
+    public String insertarPlanilla(String planilla) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs;
+        String mensaje = "";
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareCall("CALL sp_insert_planilla(?)");
             ps.setString(1, planilla);
             rs = ps.executeQuery();
+            if (rs.next()) {
+                mensaje = String.valueOf(rs.getInt("ultimo_id"));
+            }
         } catch (SQLException ex) {
             System.out.println("ex = " + ex);
+            mensaje = "error";
         } finally {
             Conexion.close(ps);
             Conexion.close(conn);
         }
+        return mensaje;
     }
 
-    public void actualizarEmpleado(Empleado empleado) {
+    public String actualizarEmpleado(Empleado empleado) {//Permite actualizar la informacion dentro de la base de datos, para esto se debe 
+                                                  //ingresar como parametro del tipo de objeto que estas usando
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs;
+        String mensaje = "";
         try {
             conn = Conexion.getConnection();
             ps = conn.prepareCall("CALL sp_update_empleado(?,?,?,?,?,?,?,?)");
@@ -186,11 +330,98 @@ public class ControlDAO {
             ps.setString(7, empleado.getDireccion());
             ps.setString(8, empleado.getTelefono());
             rs = ps.executeQuery();
+            if (rs.next()) {
+                mensaje = rs.getString("cedula");
+            }
+        } catch (SQLException ex) {
+            System.out.println("ex = " + ex);
+            mensaje = "error";
+        } finally {
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return mensaje;
+    }
+
+    public ArrayList<Planilla> seleccionarPlanillaTotales() {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Planilla planilla = null;
+        ArrayList<Planilla> planillaTotal = new ArrayList<>();
+
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_totales_planilla");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int idPlanilla = rs.getInt("id_planilla");
+                String fecha = rs.getString("fecha");
+                double totalsb = rs.getDouble("total_sb");
+                double totalss = rs.getDouble("total_ss");
+                double totalse = rs.getDouble("total_se");
+                double totalsn = rs.getDouble("total_sn");
+
+                planilla = new Planilla(idPlanilla, fecha, totalsb, totalss, totalse, totalsn);
+                planillaTotal.add(planilla);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error= " + ex.getMessage());
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return planillaTotal;
+    }
+
+     public boolean verificarDatosLogin(String user, String Password){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs;
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_validar_usuario(?,?)");
+            ps.setString(1, user);
+            ps.setString(2, Password);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString("numero").equals("1")){
+                    return true;
+                }else {
+                    return false;
+                }
+            }
         } catch (SQLException ex) {
             System.out.println("ex = " + ex);
         } finally {
             Conexion.close(ps);
             Conexion.close(conn);
         }
+        return false;
     }
+     
+     public boolean verificarAdmin(){
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs;
+        try {
+            conn = Conexion.getConnection();
+            ps = conn.prepareCall("CALL sp_select_admin_account('0-000-0000')");
+            rs = ps.executeQuery();
+            while(rs.next()){
+                if(rs.getString("numero").equals("1")){
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("ex = " + ex);
+        } finally {
+            Conexion.close(ps);
+            Conexion.close(conn);
+        }
+        return false;
+    }
+     
 }

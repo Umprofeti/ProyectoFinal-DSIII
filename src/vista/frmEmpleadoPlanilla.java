@@ -84,7 +84,7 @@ public class frmEmpleadoPlanilla extends javax.swing.JFrame {
                 .addComponent(cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnbuscar)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,10 +243,10 @@ public class frmEmpleadoPlanilla extends javax.swing.JFrame {
         getContentPane().add(btnregresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 90, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city.png"))); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 430));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 490));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city_1.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 290, 430));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 290, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -266,67 +266,68 @@ public class frmEmpleadoPlanilla extends javax.swing.JFrame {
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         // TODO add your handling code here:
-        controlador.Empleados obj_empleado = new controlador.Empleados();
-
-        ArrayList<Empleados> lista = new ArrayList<>();
-        if (!cedula.getText().equals("")) {//Verficamos que el campo cédula no este vacio 
-            obj_empleado.setCedula(String.valueOf(cedula.getText()));
-
-            if (obj_empleado.BuscarEmpleado()) {//Se busca el empleado a partir de la cédula escrita.
-                lista = obj_empleado.MostrarTodo();
-
-                for (int i = 0; i < lista.size(); i++) {
-                    if (lista.get(i).getCedula().equals(cedula.getText())) {
-
-                        nombre1.setText(lista.get(i).getNombre());
-                        nombre2.setText(lista.get(i).getNombre2());
-                        apellido1.setText(lista.get(i).getApellido());
-                        apellido2.setText(lista.get(i).getApellido2());
-
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe el empleado");
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(null, "El campo cédula esta vacío.");
-        }
+//        controlador.Empleados obj_empleado = new controlador.Empleados();
+//
+//        ArrayList<Empleados> lista = new ArrayList<>();
+//        
+//        if (!cedula.getText().equals("")) {//Verficamos que el campo cédula no este vacio 
+//            obj_empleado.setCedula(String.valueOf(cedula.getText()));
+//
+//            if (obj_empleado.BuscarEmpleado()) {//Se busca el empleado a partir de la cédula escrita.
+//                lista = obj_empleado.MostrarTodo();
+//
+//                for (int i = 0; i < lista.size(); i++) {
+//                    if (lista.get(i).getCedula().equals(cedula.getText())) {
+//
+//                        nombre1.setText(lista.get(i).getNombre());
+//                        nombre2.setText(lista.get(i).getNombre2());
+//                        apellido1.setText(lista.get(i).getApellido());
+//                        apellido2.setText(lista.get(i).getApellido2());
+//
+//                    }
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "No existe el empleado");
+//            }
+//
+//        } else {
+//            JOptionPane.showMessageDialog(null, "El campo cédula esta vacío.");
+//        }
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void btnagregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregaActionPerformed
         // TODO add your handling code here:
-        controlador.Planilla obj_planilla = new controlador.Planilla();
-        if (!horaword.getText().equals("") && !horasalario.getText().equals("")) {//Verificación de no dejar campos vacios 
-
-            obj_planilla.setCedula(String.valueOf(cedula.getText()));
-            if (!obj_planilla.BuscarEmpleado()) {//Buscamos el empleado y se le asigna la informacion necesaria para la planilla
-                obj_planilla.setNombre(String.valueOf(nombre1.getText()));
-                obj_planilla.setNombre2(String.valueOf(nombre2.getText()));
-                obj_planilla.setApellido(String.valueOf(apellido1.getText()));
-                obj_planilla.setApellido2(String.valueOf(apellido2.getText()));
-                obj_planilla.setHoratrabjada(Integer.valueOf(horaword.getText()));
-                obj_planilla.setSphora(Double.parseDouble(horasalario.getText()));
-
-                if (obj_planilla.validarhorastr() == true && obj_planilla.validarsalario() == true) {//Verificamos que cumple con
-                                                                                                    //los requisitos.
-                    obj_planilla.Salirobruto();//Llamamos el metodo que calcula el salario.
-                    if (obj_planilla.Insertar()) {//Se inserta el empleado a la planilla.
-                        JOptionPane.showMessageDialog(null, "Se agrego un empleado a la planilla");
-                        dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No se pudo agregar el empleado a la planilla.");
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "El empleano no cumple con los requisitos de"
-                            + "\nsalario por hora u hora trabajadas. ");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Este empleado ya fue agregado a la plantilla anteriormente.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Hay campos vacíos");
-        }
+//        controlador.Planilla obj_planilla = new controlador.Planilla();
+//        if (!horaword.getText().equals("") && !horasalario.getText().equals("")) {//Verificación de no dejar campos vacios 
+//
+//            obj_planilla.setCedula(String.valueOf(cedula.getText()));
+//            if (!obj_planilla.BuscarEmpleado()) {//Buscamos el empleado y se le asigna la informacion necesaria para la planilla
+//                obj_planilla.setNombre(String.valueOf(nombre1.getText()));
+//                obj_planilla.setNombre2(String.valueOf(nombre2.getText()));
+//                obj_planilla.setApellido(String.valueOf(apellido1.getText()));
+//                obj_planilla.setApellido2(String.valueOf(apellido2.getText()));
+//                obj_planilla.setHoratrabjada(Integer.valueOf(horaword.getText()));
+//                obj_planilla.setSphora(Double.parseDouble(horasalario.getText()));
+//
+//                if (obj_planilla.validarhorastr() == true && obj_planilla.validarsalario() == true) {//Verificamos que cumple con
+//                                                                                                    //los requisitos.
+//                    obj_planilla.Salirobruto();//Llamamos el metodo que calcula el salario.
+//                    if (obj_planilla.Insertar()) {//Se inserta el empleado a la planilla.
+//                        JOptionPane.showMessageDialog(null, "Se agrego un empleado a la planilla");
+//                        dispose();
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "No se pudo agregar el empleado a la planilla.");
+//                    }
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "El empleano no cumple con los requisitos de"
+//                            + "\nsalario por hora u hora trabajadas. ");
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Este empleado ya fue agregado a la plantilla anteriormente.");
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Hay campos vacíos");
+//        }
 
     }//GEN-LAST:event_btnagregaActionPerformed
 
